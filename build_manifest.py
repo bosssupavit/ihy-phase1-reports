@@ -15,6 +15,7 @@ SKIP = {"index.html"}
 LABEL_OVERRIDES = {
     "getme": "Get Me",
     "text_to_sign": "Text to Sign",
+    "sign_to_text": "Sign to Text",
     "videolist": "Video List",
     "healthcheck": "Health Check",
 }
