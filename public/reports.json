@@ -51,10 +51,29 @@
       }
     },
     {
-      "file": "phase1_healthcheck_dashboard_round_1.html",
+      "file": "phase1_healthcheck_round1.html",
       "label": "Health Check",
-      "meta": "20260829_183010",
-      "files": {}
+      "meta": "20260830_192606",
+      "files": {
+        "run_clock": "data/20260830_192606/run_clock.json",
+        "handle_summary": "data/20260830_192606/handle_summary.json",
+        "summary": "data/20260830_192606/summary_phase1_healthcheck.json"
+      },
+      "clock": {
+        "started_at": "2026-08-30T19:26:06+07:00",
+        "ended_at": "2026-08-30T20:27:33+07:00",
+        "elapsed": "1h 11s",
+        "duration_ms": 3611259.311343
+      },
+      "highlights": {
+        "http_reqs": 242257,
+        "http_req_rate": 67.08380072266438,
+        "http_fail_rate": 0,
+        "checks_pass_rate": 1,
+        "duration_p95_ms": 83.80074719999992,
+        "duration_avg_ms": 17.36359393863514,
+        "vus_max": 100
+      }
     },
     {
       "file": "phase1_text_to_sign_round1.html",
