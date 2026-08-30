@@ -10,11 +10,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent / "public"
 RUNS_ROOT = Path(__file__).resolve().parent.parent
 SKIP = {"index.html"}
+LABEL_OVERRIDES = {
+    "getme": "Get Me",
+    "text_to_sign": "Text to Sign",
+}
 
 
 def label_for(name: str) -> str:
     stem = Path(name).stem
     stem = re.sub(r"^phase\d+_", "", stem)
+    if stem in LABEL_OVERRIDES:
+        return LABEL_OVERRIDES[stem]
     parts = [p for p in stem.split("_") if p]
     if not parts:
         return name
