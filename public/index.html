@@ -79,32 +79,68 @@
         color: var(--muted);
         white-space: nowrap;
       }
+      .empty,
+      .error {
+        padding: 1rem 1.15rem;
+        color: var(--muted);
+      }
+      .error {
+        color: #e8a0a0;
+      }
     </style>
   </head>
   <body>
     <main>
       <h1>IHY Phase 1 Reports</h1>
-      <p>Static dashboards for auth, getme, and text-to-sign runs.</p>
-      <ul>
-        <li>
-          <a href="phase1_auth.html">
-            <span class="label">Auth</span>
-            <span class="meta">20260830_131124</span>
-          </a>
-        </li>
-        <li>
-          <a href="phase1_getme.html">
-            <span class="label">Get Me</span>
-            <span class="meta">20260830_150414</span>
-          </a>
-        </li>
-        <li>
-          <a href="phase1_text_to_sign.html">
-            <span class="label">Text to Sign</span>
-            <span class="meta">20260830_170247</span>
-          </a>
-        </li>
+      <p>Static dashboards discovered from available HTML report files.</p>
+      <ul id="report-list">
+        <li class="empty">Loading reports…</li>
       </ul>
     </main>
+    <script>
+      function render(reports) {
+        const list = document.getElementById("report-list");
+        list.replaceChildren();
+        if (!reports.length) {
+          const li = document.createElement("li");
+          li.className = "empty";
+          li.textContent = "No report HTML files found.";
+          list.appendChild(li);
+          return;
+        }
+        for (const report of reports) {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = report.file;
+          const label = document.createElement("span");
+          label.className = "label";
+          label.textContent = report.label || report.file;
+          a.appendChild(label);
+          if (report.meta) {
+            const meta = document.createElement("span");
+            meta.className = "meta";
+            meta.textContent = report.meta;
+            a.appendChild(meta);
+          }
+          li.appendChild(a);
+          list.appendChild(li);
+        }
+      }
+
+      fetch("reports.json", { cache: "no-store" })
+        .then((res) => {
+          if (!res.ok) throw new Error("Could not load reports.json");
+          return res.json();
+        })
+        .then((data) => render(Array.isArray(data.reports) ? data.reports : []))
+        .catch((err) => {
+          const list = document.getElementById("report-list");
+          list.replaceChildren();
+          const li = document.createElement("li");
+          li.className = "error";
+          li.textContent = err.message || "Failed to load reports.";
+          list.appendChild(li);
+        });
+    </script>
   </body>
 </html>

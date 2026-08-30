@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Serve only the Phase 1 HTML report dashboards."""
+"""Serve Phase 1 HTML report dashboards from public/."""
 
 from __future__ import annotations
 
@@ -8,16 +8,19 @@ import http.server
 import socketserver
 from pathlib import Path
 
+from build_manifest import collect_reports, write_manifest
+
 ROOT = Path(__file__).resolve().parent / "public"
 DEFAULT_PORT = 8080
 
-ALLOWED = {
-    "/",
-    "/index.html",
-    "/phase1_auth.html",
-    "/phase1_getme.html",
-    "/phase1_text_to_sign.html",
-}
+
+def allowed_paths() -> set[str]:
+    paths = {"/", "/index.html", "/reports.json"}
+    for path in ROOT.glob("*.html"):
+        if path.name == "index.html":
+            continue
+        paths.add(f"/{path.name}")
+    return paths
 
 
 class ReportHandler(http.server.SimpleHTTPRequestHandler):
@@ -26,7 +29,7 @@ class ReportHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = self.path.split("?", 1)[0]
-        if path not in ALLOWED:
+        if path not in allowed_paths():
             self.send_error(404, "Report not found")
             return
         if path == "/":
@@ -45,12 +48,14 @@ def main() -> None:
     if not ROOT.is_dir():
         raise SystemExit(f"Missing public directory: {ROOT}")
 
+    reports = collect_reports()
+    write_manifest(reports)
+
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", args.port), ReportHandler) as httpd:
         print(f"Serving reports at http://127.0.0.1:{args.port}/")
-        print("  /phase1_auth.html")
-        print("  /phase1_getme.html")
-        print("  /phase1_text_to_sign.html")
+        for report in reports:
+            print(f"  /{report['file']}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
