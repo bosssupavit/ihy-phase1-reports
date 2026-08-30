@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import json
 import re
-import shutil
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +31,7 @@ def label_for(name: str) -> str:
     return " ".join(p.upper() if p.lower() == "id" else p.capitalize() for p in parts)
 
 
-def run_meta_for(public_name: str) -> str | None:
+def source_run_for(public_name: str) -> str | None:
     """Newest run folder that has a matching *_dashboard.html source."""
     stem = Path(public_name).stem
     matches: list[str] = []
@@ -42,6 +41,17 @@ def run_meta_for(public_name: str) -> str | None:
         if (run_dir / f"{stem}_dashboard.html").is_file() or (
             run_dir / f"{stem}.html"
         ).is_file():
+            matches.append(run_dir.name)
+    return max(matches) if matches else None
+
+
+def published_run_for(report_stem: str) -> str | None:
+    """Newest already-published data dir for this report stem."""
+    if not DATA_ROOT.is_dir():
+        return None
+    matches: list[str] = []
+    for run_dir in DATA_ROOT.glob("20*"):
+        if (run_dir / f"summary_{report_stem}.json").is_file():
             matches.append(run_dir.name)
     return max(matches) if matches else None
 
@@ -127,41 +137,29 @@ def build_highlights(handle: dict[str, Any] | None) -> dict[str, Any]:
     return highlights
 
 
-def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
-    """Copy sanitized run JSON into public/data/<run_id>/ and return sidecar info."""
-    src_dir = RUNS_ROOT / run_id
+def read_json(path: Path) -> dict[str, Any] | None:
+    if not path.is_file():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return data if isinstance(data, dict) else None
+
+
+def sidecar_from_dir(run_id: str, report_stem: str) -> dict[str, Any]:
     dest_dir = DATA_ROOT / run_id
-    dest_dir.mkdir(parents=True, exist_ok=True)
-
     files: dict[str, str] = {}
-    clock: dict[str, Any] | None = None
-    handle: dict[str, Any] | None = None
-
-    clock_src = src_dir / "run_clock.json"
-    if clock_src.is_file():
-        clock = json.loads(clock_src.read_text(encoding="utf-8"))
-        dest = dest_dir / "run_clock.json"
-        dest.write_text(json.dumps(clock, indent=2) + "\n", encoding="utf-8")
-        files["run_clock"] = f"data/{run_id}/run_clock.json"
-
-    handle_src = src_dir / "handle_summary.json"
-    if handle_src.is_file():
-        handle = json.loads(handle_src.read_text(encoding="utf-8"))
-        cleaned = sanitize(handle)
-        dest = dest_dir / "handle_summary.json"
-        dest.write_text(json.dumps(cleaned, indent=2) + "\n", encoding="utf-8")
-        files["handle_summary"] = f"data/{run_id}/handle_summary.json"
-
+    clock = read_json(dest_dir / "run_clock.json")
+    handle = read_json(dest_dir / "handle_summary.json")
     summary_name = f"summary_{report_stem}.json"
-    summary_src = src_dir / summary_name
-    if summary_src.is_file():
-        summary = sanitize(json.loads(summary_src.read_text(encoding="utf-8")))
-        dest = dest_dir / summary_name
-        dest.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+
+    if (dest_dir / "run_clock.json").is_file():
+        files["run_clock"] = f"data/{run_id}/run_clock.json"
+    if (dest_dir / "handle_summary.json").is_file():
+        files["handle_summary"] = f"data/{run_id}/handle_summary.json"
+    if (dest_dir / summary_name).is_file():
         files["summary"] = f"data/{run_id}/{summary_name}"
 
     info: dict[str, Any] = {"files": files}
-    if isinstance(clock, dict):
+    if clock:
         info["clock"] = {
             k: clock[k]
             for k in ("started_at", "ended_at", "elapsed", "duration_ms")
@@ -173,11 +171,39 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
     return info
 
 
-def collect_reports() -> list[dict[str, Any]]:
-    if DATA_ROOT.exists():
-        shutil.rmtree(DATA_ROOT)
-    DATA_ROOT.mkdir(parents=True, exist_ok=True)
+def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
+    """Copy sanitized run JSON into public/data/<run_id>/ and return sidecar info."""
+    src_dir = RUNS_ROOT / run_id
+    dest_dir = DATA_ROOT / run_id
+    dest_dir.mkdir(parents=True, exist_ok=True)
 
+    clock_src = src_dir / "run_clock.json"
+    if clock_src.is_file():
+        clock = json.loads(clock_src.read_text(encoding="utf-8"))
+        (dest_dir / "run_clock.json").write_text(
+            json.dumps(clock, indent=2) + "\n", encoding="utf-8"
+        )
+
+    handle_src = src_dir / "handle_summary.json"
+    if handle_src.is_file():
+        handle = sanitize(json.loads(handle_src.read_text(encoding="utf-8")))
+        (dest_dir / "handle_summary.json").write_text(
+            json.dumps(handle, indent=2) + "\n", encoding="utf-8"
+        )
+
+    summary_name = f"summary_{report_stem}.json"
+    summary_src = src_dir / summary_name
+    if summary_src.is_file():
+        summary = sanitize(json.loads(summary_src.read_text(encoding="utf-8")))
+        (dest_dir / summary_name).write_text(
+            json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+        )
+
+    return sidecar_from_dir(run_id, report_stem)
+
+
+def collect_reports() -> list[dict[str, Any]]:
+    DATA_ROOT.mkdir(parents=True, exist_ok=True)
     reports: list[dict[str, Any]] = []
     for path in sorted(ROOT.glob("*.html")):
         if path.name in SKIP:
@@ -186,10 +212,15 @@ def collect_reports() -> list[dict[str, Any]]:
             "file": path.name,
             "label": label_for(path.name),
         }
-        meta = run_meta_for(path.name)
-        if meta:
-            entry["meta"] = meta
-            entry.update(sync_run_json(meta, path.stem))
+        source_run = source_run_for(path.name)
+        published_run = published_run_for(path.stem)
+        run_id = source_run or published_run
+        if run_id:
+            entry["meta"] = run_id
+            if source_run and (RUNS_ROOT / source_run).is_dir():
+                entry.update(sync_run_json(source_run, path.stem))
+            else:
+                entry.update(sidecar_from_dir(run_id, path.stem))
         reports.append(entry)
     return reports
 
