@@ -13,6 +13,9 @@
         --line: #2a3542;
         --accent: #3d9cf0;
         --ok: #3ecf8e;
+        --warn: #e6b84d;
+        --cpu: #5bb8ff;
+        --ram: #c084fc;
       }
       * {
         box-sizing: border-box;
@@ -28,7 +31,7 @@
         color: var(--text);
       }
       main {
-        max-width: 52rem;
+        max-width: 60rem;
         margin: 0 auto;
         padding: 3rem 1.5rem 4rem;
       }
@@ -38,10 +41,131 @@
         font-weight: 600;
         letter-spacing: -0.02em;
       }
+      h2 {
+        margin: 0 0 0.75rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
       .lede {
-        margin: 0 0 2rem;
+        margin: 0 0 1.75rem;
         color: var(--muted);
         line-height: 1.5;
+      }
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        margin-bottom: 1.25rem;
+        overflow: hidden;
+      }
+      .panel-body {
+        padding: 1rem 1.15rem 1.15rem;
+      }
+      .hint {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.82em;
+        color: #b8d4ef;
+      }
+      .axis {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 0.75rem;
+        margin-bottom: 0.55rem;
+        font-variant-numeric: tabular-nums;
+      }
+      .lane {
+        display: grid;
+        grid-template-columns: 8.5rem 1fr;
+        gap: 0.65rem;
+        align-items: center;
+        margin-bottom: 0.45rem;
+      }
+      .lane-label {
+        font-size: 0.85rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .track {
+        position: relative;
+        height: 1.55rem;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--line);
+        overflow: hidden;
+      }
+      .bar {
+        position: absolute;
+        top: 2px;
+        bottom: 2px;
+        border-radius: 4px;
+        min-width: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 0.4rem;
+        font-size: 0.7rem;
+        color: #0b1220;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .compare-wrap {
+        overflow-x: auto;
+      }
+      table.compare {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+        font-variant-numeric: tabular-nums;
+      }
+      table.compare th,
+      table.compare td {
+        text-align: left;
+        padding: 0.55rem 0.65rem;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      table.compare th {
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      table.compare tr:last-child td {
+        border-bottom: none;
+      }
+      .badge {
+        display: inline-block;
+        font-size: 0.72rem;
+        padding: 0.12rem 0.45rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+      }
+      .badge.ok {
+        color: var(--ok);
+        border-color: rgba(62, 207, 142, 0.35);
+        background: rgba(62, 207, 142, 0.08);
+      }
+      .badge.missing {
+        color: var(--warn);
+        border-color: rgba(230, 184, 77, 0.35);
+        background: rgba(230, 184, 77, 0.08);
+      }
+      .swatch {
+        display: inline-block;
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 2px;
+        margin-right: 0.35rem;
+        vertical-align: middle;
       }
       #report-list {
         list-style: none;
@@ -78,16 +202,22 @@
         color: var(--muted);
         white-space: nowrap;
       }
-      .clock {
+      .clock,
+      .metrics,
+      .host-row {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
         gap: 0.65rem;
         padding: 0.9rem 1.15rem;
+      }
+      .clock {
         border-bottom: 1px solid var(--line);
         background: rgba(0, 0, 0, 0.15);
+        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
       }
-      .stat {
-        min-width: 0;
+      .host-row {
+        border-top: 1px solid var(--line);
+        background: rgba(192, 132, 252, 0.05);
       }
       .stat .k {
         display: block;
@@ -106,11 +236,13 @@
         color: var(--ok);
         font-weight: 600;
       }
-      .metrics {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
-        gap: 0.65rem;
-        padding: 0.9rem 1.15rem;
+      .stat .v.cpu {
+        color: var(--cpu);
+        font-weight: 600;
+      }
+      .stat .v.ram {
+        color: var(--ram);
+        font-weight: 600;
       }
       .files {
         display: flex;
@@ -141,19 +273,74 @@
       .error {
         color: #e8a0a0;
       }
+      @media (max-width: 640px) {
+        .lane {
+          grid-template-columns: 1fr;
+          gap: 0.25rem;
+        }
+      }
     </style>
   </head>
   <body>
     <main>
       <h1>IHY Phase 1 Reports</h1>
       <p class="lede">
-        Dashboards plus run clock, handle summary, and sanitized phase summary JSON.
+        Load-test periods on one timeline for CPU/RAM comparison. Drop
+        <code>host_metrics.json</code> into each run folder to fill the numbers.
       </p>
+
+      <section class="panel" id="timeline-panel">
+        <div class="panel-body">
+          <h2>Summary timeline — load test periods</h2>
+          <div id="timeline"></div>
+          <p class="hint" id="timeline-hint"></p>
+        </div>
+      </section>
+
+      <section class="panel" id="compare-panel">
+        <div class="panel-body">
+          <h2>CPU / RAM by period</h2>
+          <div class="compare-wrap">
+            <table class="compare" id="compare-table">
+              <thead>
+                <tr>
+                  <th>Period</th>
+                  <th>Window</th>
+                  <th>Elapsed</th>
+                  <th>CPU avg</th>
+                  <th>CPU max</th>
+                  <th>RAM avg</th>
+                  <th>RAM max</th>
+                  <th>Metrics</th>
+                </tr>
+              </thead>
+              <tbody id="compare-body"></tbody>
+            </table>
+          </div>
+          <p class="hint">
+            File path:
+            <code>public/data/&lt;run_id&gt;/host_metrics.json</code>
+            · example:
+            <code>examples/host_metrics.example.json</code>
+          </p>
+        </div>
+      </section>
+
       <ul id="report-list">
         <li class="empty">Loading reports…</li>
       </ul>
     </main>
     <script>
+      const COLORS = [
+        "#5bb8ff",
+        "#3ecf8e",
+        "#c084fc",
+        "#e6b84d",
+        "#f07178",
+        "#7dd3fc",
+        "#a3e635",
+      ];
+
       function fmtPct(rate) {
         if (rate == null || Number.isNaN(Number(rate))) return "—";
         return (Number(rate) * 100).toFixed(2) + "%";
@@ -179,14 +366,32 @@
         return d.toLocaleString();
       }
 
-      function addStat(parent, key, value, accent) {
+      function fmtShort(iso) {
+        if (!iso) return "—";
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso;
+        return d.toLocaleString(undefined, {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+
+      function fmtHost(n, unit, digits = 1) {
+        if (n == null || Number.isNaN(Number(n))) return "—";
+        const u = unit ? ` ${unit}` : "";
+        return fmtNum(n, digits) + u;
+      }
+
+      function addStat(parent, key, value, klass) {
         const el = document.createElement("div");
         el.className = "stat";
         const k = document.createElement("span");
         k.className = "k";
         k.textContent = key;
         const v = document.createElement("span");
-        v.className = accent ? "v accent" : "v";
+        v.className = klass ? `v ${klass}` : "v";
         v.textContent = value;
         el.append(k, v);
         parent.appendChild(el);
@@ -201,7 +406,114 @@
         return a;
       }
 
-      function render(reports) {
+      function withClock(reports) {
+        return reports
+          .map((r, i) => {
+            const start = r.clock && r.clock.started_at ? Date.parse(r.clock.started_at) : NaN;
+            const end = r.clock && r.clock.ended_at ? Date.parse(r.clock.ended_at) : NaN;
+            return { report: r, color: COLORS[i % COLORS.length], start, end };
+          })
+          .filter((x) => !Number.isNaN(x.start) && !Number.isNaN(x.end) && x.end > x.start)
+          .sort((a, b) => a.start - b.start);
+      }
+
+      function renderTimeline(items) {
+        const root = document.getElementById("timeline");
+        const hint = document.getElementById("timeline-hint");
+        root.replaceChildren();
+        if (!items.length) {
+          hint.textContent = "No run clocks yet — add reports with started_at / ended_at.";
+          return;
+        }
+        const min = Math.min(...items.map((x) => x.start));
+        const max = Math.max(...items.map((x) => x.end));
+        const span = Math.max(max - min, 1);
+
+        const axis = document.createElement("div");
+        axis.className = "axis";
+        axis.innerHTML = `<span>${fmtShort(new Date(min).toISOString())}</span><span>${fmtShort(new Date(max).toISOString())}</span>`;
+        root.appendChild(axis);
+
+        for (const item of items) {
+          const lane = document.createElement("div");
+          lane.className = "lane";
+          const label = document.createElement("div");
+          label.className = "lane-label";
+          const sw = document.createElement("span");
+          sw.className = "swatch";
+          sw.style.background = item.color;
+          label.append(sw, document.createTextNode(item.report.label || item.report.file));
+          const track = document.createElement("div");
+          track.className = "track";
+          const bar = document.createElement("div");
+          bar.className = "bar";
+          bar.style.left = ((item.start - min) / span) * 100 + "%";
+          bar.style.width = ((item.end - item.start) / span) * 100 + "%";
+          bar.style.background = item.color;
+          bar.title = `${item.report.label}\n${fmtWhen(item.report.clock.started_at)} → ${fmtWhen(item.report.clock.ended_at)}\n${item.report.clock.elapsed || ""}`;
+          bar.textContent = item.report.clock.elapsed || "";
+          track.appendChild(bar);
+          lane.append(label, track);
+          root.appendChild(lane);
+        }
+
+        const withHost = items.filter((x) => x.report.host).length;
+        hint.textContent =
+          withHost === items.length
+            ? `All ${items.length} periods have host_metrics.json.`
+            : `${withHost}/${items.length} periods have CPU/RAM metrics — drop host_metrics.json to fill the rest.`;
+      }
+
+      function renderCompare(items) {
+        const body = document.getElementById("compare-body");
+        body.replaceChildren();
+        if (!items.length) {
+          const tr = document.createElement("tr");
+          const td = document.createElement("td");
+          td.colSpan = 8;
+          td.textContent = "No periods to compare.";
+          tr.appendChild(td);
+          body.appendChild(tr);
+          return;
+        }
+        for (const item of items) {
+          const r = item.report;
+          const host = r.host || {};
+          const cpuUnit = host.cpu_unit || "%";
+          const ramUnit = host.ram_unit || "MiB";
+          const tr = document.createElement("tr");
+          const cells = [
+            r.label || r.file,
+            `${fmtShort(r.clock.started_at)} → ${fmtShort(r.clock.ended_at)}`,
+            r.clock.elapsed || "—",
+            fmtHost(host.cpu_avg, cpuUnit),
+            fmtHost(host.cpu_max, cpuUnit),
+            fmtHost(host.ram_avg, ramUnit, 0),
+            fmtHost(host.ram_max, ramUnit, 0),
+          ];
+          cells.forEach((text, idx) => {
+            const td = document.createElement("td");
+            if (idx === 0) {
+              const sw = document.createElement("span");
+              sw.className = "swatch";
+              sw.style.background = item.color;
+              td.append(sw, document.createTextNode(text));
+            } else {
+              td.textContent = text;
+            }
+            tr.appendChild(td);
+          });
+          const status = document.createElement("td");
+          const badge = document.createElement("span");
+          badge.className = "badge " + (r.host ? "ok" : "missing");
+          badge.textContent = r.host ? "ready" : "awaiting file";
+          status.appendChild(badge);
+          tr.appendChild(status);
+          body.appendChild(tr);
+        }
+      }
+
+      function renderCards(reports, colorByFile) {
         const list = document.getElementById("report-list");
         list.replaceChildren();
         if (!reports.length) {
@@ -220,7 +532,10 @@
           head.className = "card-head";
           const title = document.createElement("a");
           title.href = report.file;
-          title.textContent = report.label || report.file;
+          const sw = document.createElement("span");
+          sw.className = "swatch";
+          sw.style.background = colorByFile.get(report.file) || COLORS[0];
+          title.append(sw, document.createTextNode(report.label || report.file));
           head.appendChild(title);
           if (report.meta) {
             const meta = document.createElement("span");
@@ -234,7 +549,7 @@
           if (clock.elapsed || clock.started_at || clock.ended_at) {
             const row = document.createElement("div");
             row.className = "clock";
-            addStat(row, "Elapsed", clock.elapsed || "—", true);
+            addStat(row, "Elapsed", clock.elapsed || "—", "accent");
             addStat(row, "Started", fmtWhen(clock.started_at));
             addStat(row, "Ended", fmtWhen(clock.ended_at));
             li.appendChild(row);
@@ -247,10 +562,26 @@
             addStat(row, "HTTP reqs", fmtNum(h.http_reqs));
             addStat(row, "Req/s", fmtNum(h.http_req_rate, 2));
             addStat(row, "Fail rate", fmtPct(h.http_fail_rate));
-            addStat(row, "Checks pass", fmtPct(h.checks_pass_rate), true);
+            addStat(row, "Checks pass", fmtPct(h.checks_pass_rate), "accent");
             addStat(row, "p95", fmtMs(h.duration_p95_ms));
             addStat(row, "Avg", fmtMs(h.duration_avg_ms));
             addStat(row, "VUs max", fmtNum(h.vus_max));
+            li.appendChild(row);
+          }
+
+          const host = report.host;
+          if (host) {
+            const row = document.createElement("div");
+            row.className = "host-row";
+            const cpuUnit = host.cpu_unit || "%";
+            const ramUnit = host.ram_unit || "MiB";
+            addStat(row, "CPU avg", fmtHost(host.cpu_avg, cpuUnit), "cpu");
+            addStat(row, "CPU max", fmtHost(host.cpu_max, cpuUnit), "cpu");
+            addStat(row, "RAM avg", fmtHost(host.ram_avg, ramUnit, 0), "ram");
+            addStat(row, "RAM max", fmtHost(host.ram_max, ramUnit, 0), "ram");
+            if (host.host) addStat(row, "Host", host.host);
+            if (host.sample_count != null)
+              addStat(row, "Samples", fmtNum(host.sample_count));
             li.appendChild(row);
           }
 
@@ -262,10 +593,30 @@
           if (f.handle_summary)
             files.appendChild(fileChip(f.handle_summary, "handle_summary.json"));
           if (f.summary) files.appendChild(fileChip(f.summary, "summary.json"));
+          if (f.host_metrics)
+            files.appendChild(fileChip(f.host_metrics, "host_metrics.json"));
+          else if (report.meta)
+            files.appendChild(
+              fileChip(
+                `data/${report.meta}/host_metrics.json`,
+                "host_metrics.json (add)"
+              )
+            );
           li.appendChild(files);
 
           list.appendChild(li);
         }
+      }
+
+      function render(reports) {
+        const items = withClock(reports);
+        const colorByFile = new Map(items.map((x) => [x.report.file, x.color]));
+        reports.forEach((r, i) => {
+          if (!colorByFile.has(r.file)) colorByFile.set(r.file, COLORS[i % COLORS.length]);
+        });
+        renderTimeline(items);
+        renderCompare(items);
+        renderCards(reports, colorByFile);
       }
 
       fetch("reports.json", { cache: "no-store" })

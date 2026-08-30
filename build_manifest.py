@@ -156,6 +156,70 @@ def read_json(path: Path) -> dict[str, Any] | None:
     return data if isinstance(data, dict) else None
 
 
+def summarize_host_metrics(metrics: dict[str, Any]) -> dict[str, Any] | None:
+    summary = metrics.get("summary")
+    if isinstance(summary, dict) and any(
+        k in summary for k in ("cpu_avg", "cpu_max", "ram_avg", "ram_max")
+    ):
+        out: dict[str, Any] = {}
+        for key in ("cpu_avg", "cpu_max", "ram_avg", "ram_max"):
+            if key in summary and isinstance(summary[key], (int, float)):
+                out[key] = summary[key]
+        if out:
+            if isinstance(metrics.get("cpu_unit"), str):
+                out["cpu_unit"] = metrics["cpu_unit"]
+            if isinstance(metrics.get("ram_unit"), str):
+                out["ram_unit"] = metrics["ram_unit"]
+            if isinstance(metrics.get("host"), str):
+                out["host"] = metrics["host"]
+            samples = metrics.get("samples")
+            if isinstance(samples, list):
+                out["sample_count"] = len(samples)
+            return out
+
+    samples = metrics.get("samples")
+    if not isinstance(samples, list) or not samples:
+        return None
+    cpus: list[float] = []
+    rams: list[float] = []
+    for sample in samples:
+        if not isinstance(sample, dict):
+            continue
+        if isinstance(sample.get("cpu"), (int, float)):
+            cpus.append(float(sample["cpu"]))
+        if isinstance(sample.get("ram"), (int, float)):
+            rams.append(float(sample["ram"]))
+    if not cpus and not rams:
+        return None
+    out = {"sample_count": len(samples)}
+    if cpus:
+        out["cpu_avg"] = sum(cpus) / len(cpus)
+        out["cpu_max"] = max(cpus)
+    if rams:
+        out["ram_avg"] = sum(rams) / len(rams)
+        out["ram_max"] = max(rams)
+    if isinstance(metrics.get("cpu_unit"), str):
+        out["cpu_unit"] = metrics["cpu_unit"]
+    if isinstance(metrics.get("ram_unit"), str):
+        out["ram_unit"] = metrics["ram_unit"]
+    if isinstance(metrics.get("host"), str):
+        out["host"] = metrics["host"]
+    return out
+
+
+def attach_host_metrics(info: dict[str, Any], run_id: str) -> None:
+    dest = DATA_ROOT / run_id / "host_metrics.json"
+    if not dest.is_file():
+        return
+    metrics = read_json(dest)
+    if not metrics:
+        return
+    info.setdefault("files", {})["host_metrics"] = f"data/{run_id}/host_metrics.json"
+    host = summarize_host_metrics(metrics)
+    if host:
+        info["host"] = host
+
+
 def sidecar_from_dir(run_id: str, report_stem: str) -> dict[str, Any]:
     dest_dir = DATA_ROOT / run_id
     files: dict[str, str] = {}
@@ -181,6 +245,7 @@ def sidecar_from_dir(run_id: str, report_stem: str) -> dict[str, Any]:
     highlights = build_highlights(handle)
     if highlights:
         info["highlights"] = highlights
+    attach_host_metrics(info, run_id)
     return info
 
 
@@ -211,6 +276,13 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
         summary = sanitize(json.loads(summary_src.read_text(encoding="utf-8")))
         (dest_dir / summary_name).write_text(
             json.dumps(summary, indent=2) + "\n", encoding="utf-8"
+        )
+
+    metrics_src = src_dir / "host_metrics.json"
+    if metrics_src.is_file():
+        metrics = sanitize(json.loads(metrics_src.read_text(encoding="utf-8")))
+        (dest_dir / "host_metrics.json").write_text(
+            json.dumps(metrics, indent=2) + "\n", encoding="utf-8"
         )
 
     return sidecar_from_dir(run_id, stem)
