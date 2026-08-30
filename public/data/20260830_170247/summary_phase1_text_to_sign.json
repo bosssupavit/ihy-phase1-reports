@@ -1,0 +1,180 @@
+{
+  "metrics": {
+    "http_req_waiting": {
+      "p(95)": 1656.0348201,
+      "avg": 769.354806627166,
+      "min": 7.612986,
+      "med": 1051.761973,
+      "max": 2859.904784,
+      "p(90)": 1597.0059844
+    },
+    "http_req_receiving": {
+      "p(90)": 0.07545360000000001,
+      "p(95)": 0.0903103,
+      "avg": 0.08590433989895588,
+      "min": 0.01352,
+      "med": 0.026328,
+      "max": 443.043484
+    },
+    "group_duration": {
+      "p(95)": 2498.400641799998,
+      "avg": 1244.2483204624766,
+      "min": 8.045514,
+      "med": 1189.387077,
+      "max": 3770.700153,
+      "p(90)": 2300.8462486
+    },
+    "http_req_duration{expected_response:true}": {
+      "avg": 1275.1144426396115,
+      "min": 263.016875,
+      "med": 1276.44542,
+      "max": 2859.948422,
+      "p(90)": 1644.1902745999998,
+      "p(95)": 1694.0846814499998
+    },
+    "http_req_tls_handshaking": {
+      "p(95)": 0,
+      "avg": 0.017053018238863127,
+      "min": 0,
+      "med": 0,
+      "max": 333.165948,
+      "p(90)": 0
+    },
+    "data_received": {
+      "count": 204584611,
+      "rate": 56660.6431103042
+    },
+    "http_req_sending": {
+      "avg": 0.03378166263870635,
+      "min": 0.005344,
+      "med": 0.008821,
+      "max": 173.251445,
+      "p(90)": 0.021263600000000007,
+      "p(95)": 0.026769
+    },
+    "iteration_duration": {
+      "avg": 1244.268338969628,
+      "min": 8.060484,
+      "med": 1189.407051,
+      "max": 3770.712429,
+      "p(90)": 2300.8600606,
+      "p(95)": 2498.4502516999987
+    },
+    "vus": {
+      "value": 6,
+      "min": 0,
+      "max": 100
+    },
+    "http_req_failed{endpoint:text_to_sign}": {
+      "passes": 87463,
+      "fails": 129272,
+      "thresholds": {
+        "rate<0.05": true
+      },
+      "value": 0.40354811174937133
+    },
+    "http_req_failed": {
+      "passes": 87463,
+      "fails": 129272,
+      "thresholds": {
+        "rate<0.05": true
+      },
+      "value": 0.40354811174937133
+    },
+    "http_req_blocked": {
+      "avg": 0.03479167673887452,
+      "min": 0.001204,
+      "med": 0.002477,
+      "max": 410.384146,
+      "p(90)": 0.004478,
+      "p(95)": 0.005988299999999989
+    },
+    "data_sent": {
+      "count": 69294356,
+      "rate": 19191.388617565015
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 100,
+      "max": 100
+    },
+    "http_reqs": {
+      "count": 216735,
+      "rate": 60.025748879576184
+    },
+    "http_req_duration{endpoint:text_to_sign}": {
+      "avg": 769.4744926297064,
+      "min": 7.664673,
+      "med": 1051.885345,
+      "max": 2859.948422,
+      "p(90)": 1597.1757146,
+      "p(95)": 1656.1772732999998,
+      "thresholds": {
+        "p(95)<35000": false
+      }
+    },
+    "http_req_connecting": {
+      "avg": 0.009670893215216742,
+      "min": 0,
+      "med": 0,
+      "max": 396.861731,
+      "p(90)": 0,
+      "p(95)": 0
+    },
+    "phase_checks_failed": {
+      "rate": 24.22327761669491,
+      "count": 87463
+    },
+    "phase_checks_passed": {
+      "count": 129272,
+      "rate": 35.80247126288127
+    },
+    "http_req_duration": {
+      "avg": 769.4744926297064,
+      "min": 7.664673,
+      "med": 1051.885345,
+      "max": 2859.948422,
+      "p(90)": 1597.1757146,
+      "p(95)": 1656.1772732999998
+    },
+    "checks": {
+      "passes": 258544,
+      "fails": 174926,
+      "value": 0.5964518882506287
+    },
+    "iterations": {
+      "count": 216735,
+      "rate": 60.025748879576184
+    }
+  },
+  "root_group": {
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "text_to_sign": {
+        "name": "text_to_sign",
+        "path": "::text_to_sign",
+        "id": "d27004094c1f748b092cf8a1db73152f",
+        "groups": {},
+        "checks": {
+          "text_to_sign status is 200": {
+            "name": "text_to_sign status is 200",
+            "path": "::text_to_sign::text_to_sign status is 200",
+            "id": "223707f9a5a8e2741afc67c6b4994dc2",
+            "passes": 129272,
+            "fails": 87463
+          },
+          "text_to_sign translation ok": {
+            "name": "text_to_sign translation ok",
+            "path": "::text_to_sign::text_to_sign translation ok",
+            "id": "e2779a2a3ceb32c2d6ee5e34aaeba6b5",
+            "passes": 129272,
+            "fails": 87463
+          }
+        }
+      }
+    },
+    "checks": {},
+    "name": "",
+    "path": ""
+  }
+}

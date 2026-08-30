@@ -1,0 +1,242 @@
+{
+  "metrics": {
+    "phase_checks_passed": {
+      "count": 250677,
+      "rate": 69.40504180372392
+    },
+    "http_req_connecting": {
+      "max": 146.720821,
+      "p(90)": 0,
+      "p(95)": 0,
+      "avg": 0.007343266245350788,
+      "min": 0,
+      "med": 0
+    },
+    "http_req_waiting": {
+      "p(90)": 51.807997500000006,
+      "p(95)": 66.81387679999999,
+      "avg": 27.551430209798234,
+      "min": 3.025354,
+      "med": 19.7451455,
+      "max": 1232.752919
+    },
+    "checks": {
+      "fails": 874,
+      "passes": 501362,
+      "value": 0.9982597822537612
+    },
+    "http_req_failed": {
+      "passes": 437,
+      "fails": 250681,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0.00174021774623882
+    },
+    "http_req_failed{endpoint:getme}": {
+      "passes": 437,
+      "fails": 250681,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0.00174021774623882
+    },
+    "http_req_duration{expected_response:true}": {
+      "p(95)": 66.908933,
+      "avg": 27.65359979910789,
+      "min": 3.756696,
+      "med": 19.85583,
+      "max": 1232.784325,
+      "p(90)": 51.890881
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 100,
+      "max": 100
+    },
+    "iteration_duration": {
+      "min": 1003.527901,
+      "med": 1049.1980429999999,
+      "max": 2275.410754,
+      "p(90)": 1174.5486911,
+      "p(95)": 1227.3740618999998,
+      "avg": 1073.8056126861006
+    },
+    "iterations": {
+      "count": 251114,
+      "rate": 69.52603416947039
+    },
+    "http_req_tls_handshaking": {
+      "max": 430.26492,
+      "p(90)": 0,
+      "p(95)": 0,
+      "avg": 0.015189375520671563,
+      "min": 0,
+      "med": 0
+    },
+    "vus": {
+      "max": 100,
+      "value": 6,
+      "min": 0
+    },
+    "data_sent": {
+      "rate": 123529.05347859292,
+      "count": 446162004
+    },
+    "data_received": {
+      "count": 355072140,
+      "rate": 98308.96619968211
+    },
+    "http_req_duration{endpoint:getme}": {
+      "avg": 27.634706384783897,
+      "min": 3.069935,
+      "med": 19.827695,
+      "max": 1232.784325,
+      "p(90)": 51.897318,
+      "p(95)": 66.93817734999999,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "http_req_blocked": {
+      "p(95)": 0.006233,
+      "avg": 0.03096468887933176,
+      "min": 0.00144,
+      "med": 0.002763,
+      "max": 520.689479,
+      "p(90)": 0.004699
+    },
+    "http_req_receiving": {
+      "avg": 0.05624593415844363,
+      "min": 0.014766,
+      "med": 0.034459,
+      "max": 50.752884,
+      "p(90)": 0.062110300000000014,
+      "p(95)": 0.08340389999999998
+    },
+    "http_req_sending": {
+      "min": 0.006103,
+      "med": 0.009474,
+      "max": 111.767029,
+      "p(90)": 0.019949,
+      "p(95)": 0.026272,
+      "avg": 0.027030240827021428
+    },
+    "group_duration": {
+      "avg": 27.83811186663436,
+      "min": 3.171409,
+      "med": 20.042868,
+      "max": 1232.946574,
+      "p(90)": 52.1258928,
+      "p(95)": 67.20646414999996
+    },
+    "http_reqs": {
+      "count": 251118,
+      "rate": 69.52714165107905
+    },
+    "phase_checks_failed": {
+      "count": 437,
+      "rate": 0.12099236574646798
+    },
+    "http_req_duration": {
+      "avg": 27.634706384783897,
+      "min": 3.069935,
+      "med": 19.827695,
+      "max": 1232.784325,
+      "p(90)": 51.897318,
+      "p(95)": 66.93817734999999
+    }
+  },
+  "setup_data": {
+    "sessions": [
+      {
+        "email": "mahiro6969@gmail.com",
+        "headers": {
+          "X-App-Session-ID": "ddca0364-c628-4423-8fee-bae01b0fe921",
+          "Accept": "application/json",
+          "Authorization": "[redacted]",
+          "Content-Type": "application/json"
+        }
+      },
+      {
+        "email": "mahiro6969+test@gmail.com",
+        "headers": {
+          "Content-Type": "application/json",
+          "X-App-Session-ID": "fa13646e-44cb-4b1b-8abd-7e8a5514c879",
+          "Accept": "application/json",
+          "Authorization": "[redacted]"
+        }
+      },
+      {
+        "email": "supavit@dev.xeus.dev",
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "[redacted]",
+          "Content-Type": "application/json",
+          "X-App-Session-ID": "a634c1cf-35f2-45a8-bf65-586e8a2bddd7"
+        }
+      },
+      {
+        "email": "supavit.panyafang@gmail.com",
+        "headers": {
+          "X-App-Session-ID": "9b6110b2-7296-4af4-826c-e18cc5159b30",
+          "Accept": "application/json",
+          "Authorization": "[redacted]",
+          "Content-Type": "application/json"
+        }
+      }
+    ]
+  },
+  "root_group": {
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "setup": {
+        "path": "::setup",
+        "id": "5c0f8025f7e0b6654089e5b00e950f1a",
+        "groups": {},
+        "checks": {
+          "getme setup login status 200": {
+            "name": "getme setup login status 200",
+            "path": "::setup::getme setup login status 200",
+            "id": "e296fe818cce6ed37a895eb85aa67891",
+            "passes": 4,
+            "fails": 0
+          },
+          "getme setup login has token": {
+            "id": "83f5eb20c27bb98e5983d8e94fcba36a",
+            "passes": 4,
+            "fails": 0,
+            "name": "getme setup login has token",
+            "path": "::setup::getme setup login has token"
+          }
+        },
+        "name": "setup"
+      },
+      "getme": {
+        "name": "getme",
+        "path": "::getme",
+        "id": "85fd5e6a96ac3ff051382962d1abe689",
+        "groups": {},
+        "checks": {
+          "getme status 200": {
+            "name": "getme status 200",
+            "path": "::getme::getme status 200",
+            "id": "274f56e24955d3f1e8577086b60ccac5",
+            "passes": 250677,
+            "fails": 437
+          },
+          "getme response_status success": {
+            "name": "getme response_status success",
+            "path": "::getme::getme response_status success",
+            "id": "c1fc4668ea13b62776950782c8137fbc",
+            "passes": 250677,
+            "fails": 437
+          }
+        }
+      }
+    },
+    "checks": {},
+    "name": ""
+  }
+}

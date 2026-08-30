@@ -14,13 +14,24 @@ ROOT = Path(__file__).resolve().parent / "public"
 DEFAULT_PORT = 8080
 
 
-def allowed_paths() -> set[str]:
-    paths = {"/", "/index.html", "/reports.json"}
-    for path in ROOT.glob("*.html"):
-        if path.name == "index.html":
-            continue
-        paths.add(f"/{path.name}")
-    return paths
+def is_allowed(path: str) -> bool:
+    if path in {"/", "/index.html", "/reports.json"}:
+        return True
+    rel = path.lstrip("/")
+    if not rel or ".." in Path(rel).parts:
+        return False
+    candidate = (ROOT / rel).resolve()
+    try:
+        candidate.relative_to(ROOT.resolve())
+    except ValueError:
+        return False
+    if not candidate.is_file():
+        return False
+    if path.startswith("/data/") and candidate.suffix == ".json":
+        return True
+    if candidate.parent == ROOT.resolve() and candidate.suffix == ".html":
+        return candidate.name != "index.html"
+    return False
 
 
 class ReportHandler(http.server.SimpleHTTPRequestHandler):
@@ -29,7 +40,7 @@ class ReportHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = self.path.split("?", 1)[0]
-        if path not in allowed_paths():
+        if not is_allowed(path):
             self.send_error(404, "Report not found")
             return
         if path == "/":
@@ -56,6 +67,8 @@ def main() -> None:
         print(f"Serving reports at http://127.0.0.1:{args.port}/")
         for report in reports:
             print(f"  /{report['file']}")
+            for rel in (report.get("files") or {}).values():
+                print(f"    /{rel}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

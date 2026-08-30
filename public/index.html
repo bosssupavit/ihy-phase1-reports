@@ -12,6 +12,7 @@
         --muted: #8b9aab;
         --line: #2a3542;
         --accent: #3d9cf0;
+        --ok: #3ecf8e;
       }
       * {
         box-sizing: border-box;
@@ -27,9 +28,9 @@
         color: var(--text);
       }
       main {
-        max-width: 40rem;
+        max-width: 52rem;
         margin: 0 auto;
-        padding: 4rem 1.5rem;
+        padding: 3rem 1.5rem 4rem;
       }
       h1 {
         margin: 0 0 0.4rem;
@@ -37,52 +38,105 @@
         font-weight: 600;
         letter-spacing: -0.02em;
       }
-      p {
+      .lede {
         margin: 0 0 2rem;
         color: var(--muted);
         line-height: 1.5;
       }
-      ul {
+      #report-list {
         list-style: none;
         margin: 0;
         padding: 0;
+        display: grid;
+        gap: 1rem;
+      }
+      .card {
         border: 1px solid var(--line);
-        border-radius: 8px;
-        overflow: hidden;
+        border-radius: 10px;
         background: var(--panel);
+        overflow: hidden;
       }
-      li + li {
-        border-top: 1px solid var(--line);
-      }
-      a {
+      .card-head {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 1rem;
         padding: 1rem 1.15rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .card-head a {
         color: var(--text);
         text-decoration: none;
-        transition: background 0.15s ease;
+        font-weight: 600;
+        font-size: 1.05rem;
       }
-      a:hover {
-        background: rgba(61, 156, 240, 0.08);
-      }
-      a:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: -2px;
-      }
-      .label {
-        font-weight: 500;
+      .card-head a:hover {
+        color: var(--accent);
       }
       .meta {
         font-size: 0.8rem;
         color: var(--muted);
         white-space: nowrap;
       }
+      .clock {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+        gap: 0.65rem;
+        padding: 0.9rem 1.15rem;
+        border-bottom: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.15);
+      }
+      .stat {
+        min-width: 0;
+      }
+      .stat .k {
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        margin-bottom: 0.2rem;
+      }
+      .stat .v {
+        font-size: 0.95rem;
+        font-variant-numeric: tabular-nums;
+        word-break: break-word;
+      }
+      .stat .v.accent {
+        color: var(--ok);
+        font-weight: 600;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+        gap: 0.65rem;
+        padding: 0.9rem 1.15rem;
+      }
+      .files {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0 1.15rem 1rem;
+      }
+      .files a {
+        font-size: 0.8rem;
+        color: var(--accent);
+        text-decoration: none;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.25rem 0.7rem;
+        background: rgba(61, 156, 240, 0.08);
+      }
+      .files a:hover {
+        background: rgba(61, 156, 240, 0.16);
+      }
       .empty,
       .error {
         padding: 1rem 1.15rem;
         color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
       }
       .error {
         color: #e8a0a0;
@@ -92,12 +146,61 @@
   <body>
     <main>
       <h1>IHY Phase 1 Reports</h1>
-      <p>Static dashboards discovered from available HTML report files.</p>
+      <p class="lede">
+        Dashboards plus run clock, handle summary, and sanitized phase summary JSON.
+      </p>
       <ul id="report-list">
         <li class="empty">Loading reports…</li>
       </ul>
     </main>
     <script>
+      function fmtPct(rate) {
+        if (rate == null || Number.isNaN(Number(rate))) return "—";
+        return (Number(rate) * 100).toFixed(2) + "%";
+      }
+
+      function fmtNum(n, digits = 0) {
+        if (n == null || Number.isNaN(Number(n))) return "—";
+        return Number(n).toLocaleString(undefined, {
+          maximumFractionDigits: digits,
+          minimumFractionDigits: digits,
+        });
+      }
+
+      function fmtMs(n) {
+        if (n == null || Number.isNaN(Number(n))) return "—";
+        return fmtNum(n, 1) + " ms";
+      }
+
+      function fmtWhen(iso) {
+        if (!iso) return "—";
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso;
+        return d.toLocaleString();
+      }
+
+      function addStat(parent, key, value, accent) {
+        const el = document.createElement("div");
+        el.className = "stat";
+        const k = document.createElement("span");
+        k.className = "k";
+        k.textContent = key;
+        const v = document.createElement("span");
+        v.className = accent ? "v accent" : "v";
+        v.textContent = value;
+        el.append(k, v);
+        parent.appendChild(el);
+      }
+
+      function fileChip(href, label) {
+        const a = document.createElement("a");
+        a.href = href;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = label;
+        return a;
+      }
+
       function render(reports) {
         const list = document.getElementById("report-list");
         list.replaceChildren();
@@ -108,21 +211,59 @@
           list.appendChild(li);
           return;
         }
+
         for (const report of reports) {
           const li = document.createElement("li");
-          const a = document.createElement("a");
-          a.href = report.file;
-          const label = document.createElement("span");
-          label.className = "label";
-          label.textContent = report.label || report.file;
-          a.appendChild(label);
+          li.className = "card";
+
+          const head = document.createElement("div");
+          head.className = "card-head";
+          const title = document.createElement("a");
+          title.href = report.file;
+          title.textContent = report.label || report.file;
+          head.appendChild(title);
           if (report.meta) {
             const meta = document.createElement("span");
             meta.className = "meta";
             meta.textContent = report.meta;
-            a.appendChild(meta);
+            head.appendChild(meta);
           }
-          li.appendChild(a);
+          li.appendChild(head);
+
+          const clock = report.clock || {};
+          if (clock.elapsed || clock.started_at || clock.ended_at) {
+            const row = document.createElement("div");
+            row.className = "clock";
+            addStat(row, "Elapsed", clock.elapsed || "—", true);
+            addStat(row, "Started", fmtWhen(clock.started_at));
+            addStat(row, "Ended", fmtWhen(clock.ended_at));
+            li.appendChild(row);
+          }
+
+          const h = report.highlights || {};
+          if (Object.keys(h).length) {
+            const row = document.createElement("div");
+            row.className = "metrics";
+            addStat(row, "HTTP reqs", fmtNum(h.http_reqs));
+            addStat(row, "Req/s", fmtNum(h.http_req_rate, 2));
+            addStat(row, "Fail rate", fmtPct(h.http_fail_rate));
+            addStat(row, "Checks pass", fmtPct(h.checks_pass_rate), true);
+            addStat(row, "p95", fmtMs(h.duration_p95_ms));
+            addStat(row, "Avg", fmtMs(h.duration_avg_ms));
+            addStat(row, "VUs max", fmtNum(h.vus_max));
+            li.appendChild(row);
+          }
+
+          const files = document.createElement("div");
+          files.className = "files";
+          files.appendChild(fileChip(report.file, "Dashboard"));
+          const f = report.files || {};
+          if (f.run_clock) files.appendChild(fileChip(f.run_clock, "run_clock.json"));
+          if (f.handle_summary)
+            files.appendChild(fileChip(f.handle_summary, "handle_summary.json"));
+          if (f.summary) files.appendChild(fileChip(f.summary, "summary.json"));
+          li.appendChild(files);
+
           list.appendChild(li);
         }
       }

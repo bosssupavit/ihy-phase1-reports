@@ -3,17 +3,77 @@
     {
       "file": "phase1_auth.html",
       "label": "Auth",
-      "meta": "20260830_131124"
+      "meta": "20260830_131124",
+      "files": {
+        "run_clock": "data/20260830_131124/run_clock.json",
+        "handle_summary": "data/20260830_131124/handle_summary.json",
+        "summary": "data/20260830_131124/summary_phase1_auth.json"
+      },
+      "clock": {
+        "started_at": "2026-08-30T13:11:24+07:00",
+        "ended_at": "2026-08-30T14:11:37+07:00",
+        "elapsed": "1h 11s",
+        "duration_ms": 3611652.412954
+      },
+      "highlights": {
+        "http_reqs": 232553,
+        "http_req_rate": 64.3896403668018,
+        "http_fail_rate": 3.0100665224701465e-05,
+        "checks_pass_rate": 0.9999598661823853,
+        "duration_p95_ms": 471.1363904,
+        "duration_avg_ms": 114.50750894503199,
+        "vus_max": 100
+      }
     },
     {
       "file": "phase1_getme.html",
       "label": "Get Me",
-      "meta": "20260830_150414"
+      "meta": "20260830_150414",
+      "files": {
+        "run_clock": "data/20260830_150414/run_clock.json",
+        "handle_summary": "data/20260830_150414/handle_summary.json",
+        "summary": "data/20260830_150414/summary_phase1_getme.json"
+      },
+      "clock": {
+        "started_at": "2026-08-30T15:04:14+07:00",
+        "ended_at": "2026-08-30T16:04:29+07:00",
+        "elapsed": "1h 11s",
+        "duration_ms": 3611798.127129
+      },
+      "highlights": {
+        "http_reqs": 251118,
+        "http_req_rate": 69.52714165107905,
+        "http_fail_rate": 0.00174021774623882,
+        "checks_pass_rate": 0.9982597822537612,
+        "duration_p95_ms": 66.93817734999999,
+        "duration_avg_ms": 27.634706384783897,
+        "vus_max": 100
+      }
     },
     {
       "file": "phase1_text_to_sign.html",
       "label": "Text to Sign",
-      "meta": "20260830_170247"
+      "meta": "20260830_170247",
+      "files": {
+        "run_clock": "data/20260830_170247/run_clock.json",
+        "handle_summary": "data/20260830_170247/handle_summary.json",
+        "summary": "data/20260830_170247/summary_phase1_text_to_sign.json"
+      },
+      "clock": {
+        "started_at": "2026-08-30T17:02:47+07:00",
+        "ended_at": "2026-08-30T18:03:01+07:00",
+        "elapsed": "1h 10s",
+        "duration_ms": 3610700.475138
+      },
+      "highlights": {
+        "http_reqs": 216735,
+        "http_req_rate": 60.025748879576184,
+        "http_fail_rate": 0.40354811174937133,
+        "checks_pass_rate": 0.5964518882506287,
+        "duration_p95_ms": 1656.1772732999998,
+        "duration_avg_ms": 769.4744926297064,
+        "vus_max": 100
+      }
     }
   ]
 }
