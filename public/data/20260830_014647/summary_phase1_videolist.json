@@ -1,0 +1,176 @@
+{
+  "metrics": {
+    "http_req_tls_handshaking": {
+      "avg": 0.0207292667889792,
+      "min": 0,
+      "med": 0,
+      "max": 532.068766,
+      "p(90)": 0,
+      "p(95)": 0
+    },
+    "checks": {
+      "passes": 505808,
+      "fails": 0,
+      "value": 1
+    },
+    "group_duration": {
+      "avg": 21.526039833130397,
+      "min": 2.479049,
+      "med": 7.4200535,
+      "max": 2533.587358,
+      "p(90)": 36.278055900000005,
+      "p(95)": 50.19521459999997
+    },
+    "http_req_connecting": {
+      "avg": 0.009976445584095142,
+      "min": 0,
+      "med": 0,
+      "max": 404.053551,
+      "p(90)": 0,
+      "p(95)": 0
+    },
+    "http_reqs": {
+      "count": 252904,
+      "rate": 70.04286296938515
+    },
+    "http_req_receiving": {
+      "p(90)": 0.07497990000000007,
+      "p(95)": 0.118209,
+      "avg": 0.11493085382200598,
+      "min": 0.015498,
+      "med": 0.0353215,
+      "max": 520.175164
+    },
+    "data_sent": {
+      "count": 43490625,
+      "rate": 12044.9177843289
+    },
+    "http_req_blocked": {
+      "med": 0.002861,
+      "max": 988.074706,
+      "p(90)": 0.005164,
+      "p(95)": 0.006411,
+      "avg": 0.0411797895011547,
+      "min": 0.001581
+    },
+    "phase_checks_passed": {
+      "count": 252904,
+      "rate": 70.04286296938515
+    },
+    "http_req_failed{endpoint:videolist}": {
+      "passes": 0,
+      "fails": 252904,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    },
+    "http_req_duration{expected_response:true}": {
+      "avg": 21.10375600259752,
+      "min": 2.316324,
+      "med": 7.040395,
+      "max": 2533.327007,
+      "p(90)": 35.78379900000001,
+      "p(95)": 49.62454309999998
+    },
+    "http_req_failed": {
+      "passes": 0,
+      "fails": 252904,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    },
+    "http_req_waiting": {
+      "p(90)": 35.5769092,
+      "p(95)": 49.34802444999994,
+      "avg": 20.932854924500997,
+      "min": 2.265734,
+      "med": 6.911226,
+      "max": 2533.272353
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 100,
+      "max": 100
+    },
+    "data_received": {
+      "count": 1756183183,
+      "rate": 486382.5721855235
+    },
+    "http_req_duration{endpoint:videolist}": {
+      "avg": 21.10375600259752,
+      "min": 2.316324,
+      "med": 7.040395,
+      "max": 2533.327007,
+      "p(90)": 35.78379900000001,
+      "p(95)": 49.62454309999998,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "vus": {
+      "value": 6,
+      "min": 0,
+      "max": 100
+    },
+    "iteration_duration": {
+      "med": 1022.5182580000001,
+      "max": 3534.587102,
+      "p(90)": 1222.2156404,
+      "p(95)": 1286.19997655,
+      "avg": 1066.1211850225193,
+      "min": 1002.611065
+    },
+    "http_req_sending": {
+      "max": 520.173044,
+      "p(90)": 0.017592,
+      "p(95)": 0.025673849999999977,
+      "avg": 0.055970224274823635,
+      "min": 0.004131,
+      "med": 0.007783
+    },
+    "http_req_duration": {
+      "med": 7.040395,
+      "max": 2533.327007,
+      "p(90)": 35.78379900000001,
+      "p(95)": 49.62454309999998,
+      "avg": 21.10375600259752,
+      "min": 2.316324
+    },
+    "iterations": {
+      "count": 252904,
+      "rate": 70.04286296938515
+    }
+  },
+  "root_group": {
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "videolist": {
+        "id": "5fe7915b7f06ec16c7db917996cb4ae6",
+        "groups": {},
+        "checks": {
+          "videolist status is 200": {
+            "name": "videolist status is 200",
+            "path": "::videolist::videolist status is 200",
+            "id": "45fbf4fd77150955c0be3046efde385c",
+            "passes": 252904,
+            "fails": 0
+          },
+          "videolist response_status success": {
+            "passes": 252904,
+            "fails": 0,
+            "name": "videolist response_status success",
+            "path": "::videolist::videolist response_status success",
+            "id": "db8321a318820c72a0b94f2096c2eed9"
+          }
+        },
+        "name": "videolist",
+        "path": "::videolist"
+      }
+    },
+    "checks": {}
+  }
+}

@@ -15,14 +15,25 @@ SKIP = {"index.html"}
 LABEL_OVERRIDES = {
     "getme": "Get Me",
     "text_to_sign": "Text to Sign",
+    "videolist": "Video List",
+    "healthcheck": "Health Check",
 }
 SECRET_HEADER_KEYS = {"authorization", "cookie", "set-cookie", "x-api-key"}
 BEARER_RE = re.compile(r"Bearer\s+[A-Za-z0-9\-._~+/]+=*", re.I)
+def base_stem(public_name: str) -> str:
+    """Map public filenames to run artifact stems.
+
+    phase1_videolist_round1 → phase1_videolist
+    phase1_healthcheck_dashboard_round_1 → phase1_healthcheck
+    """
+    stem = Path(public_name).stem.lower()
+    stem = re.sub(r"_round_?\d+$", "", stem)
+    stem = re.sub(r"_dashboard$", "", stem)
+    return stem
 
 
 def label_for(name: str) -> str:
-    stem = Path(name).stem
-    stem = re.sub(r"^phase\d+_", "", stem)
+    stem = re.sub(r"^phase\d+_", "", base_stem(name))
     if stem in LABEL_OVERRIDES:
         return LABEL_OVERRIDES[stem]
     parts = [p for p in stem.split("_") if p]
@@ -33,7 +44,7 @@ def label_for(name: str) -> str:
 
 def source_run_for(public_name: str) -> str | None:
     """Newest run folder that has a matching *_dashboard.html source."""
-    stem = Path(public_name).stem
+    stem = base_stem(public_name)
     matches: list[str] = []
     for run_dir in RUNS_ROOT.glob("20*"):
         if not run_dir.is_dir():
@@ -49,9 +60,10 @@ def published_run_for(report_stem: str) -> str | None:
     """Newest already-published data dir for this report stem."""
     if not DATA_ROOT.is_dir():
         return None
+    stem = base_stem(report_stem)
     matches: list[str] = []
     for run_dir in DATA_ROOT.glob("20*"):
-        if (run_dir / f"summary_{report_stem}.json").is_file():
+        if (run_dir / f"summary_{stem}.json").is_file():
             matches.append(run_dir.name)
     return max(matches) if matches else None
 
@@ -147,9 +159,10 @@ def read_json(path: Path) -> dict[str, Any] | None:
 def sidecar_from_dir(run_id: str, report_stem: str) -> dict[str, Any]:
     dest_dir = DATA_ROOT / run_id
     files: dict[str, str] = {}
+    stem = base_stem(report_stem)
     clock = read_json(dest_dir / "run_clock.json")
     handle = read_json(dest_dir / "handle_summary.json")
-    summary_name = f"summary_{report_stem}.json"
+    summary_name = f"summary_{stem}.json"
 
     if (dest_dir / "run_clock.json").is_file():
         files["run_clock"] = f"data/{run_id}/run_clock.json"
@@ -176,6 +189,7 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
     src_dir = RUNS_ROOT / run_id
     dest_dir = DATA_ROOT / run_id
     dest_dir.mkdir(parents=True, exist_ok=True)
+    stem = base_stem(report_stem)
 
     clock_src = src_dir / "run_clock.json"
     if clock_src.is_file():
@@ -191,7 +205,7 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
             json.dumps(handle, indent=2) + "\n", encoding="utf-8"
         )
 
-    summary_name = f"summary_{report_stem}.json"
+    summary_name = f"summary_{stem}.json"
     summary_src = src_dir / summary_name
     if summary_src.is_file():
         summary = sanitize(json.loads(summary_src.read_text(encoding="utf-8")))
@@ -199,7 +213,7 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
             json.dumps(summary, indent=2) + "\n", encoding="utf-8"
         )
 
-    return sidecar_from_dir(run_id, report_stem)
+    return sidecar_from_dir(run_id, stem)
 
 
 def collect_reports() -> list[dict[str, Any]]:
@@ -208,19 +222,20 @@ def collect_reports() -> list[dict[str, Any]]:
     for path in sorted(ROOT.glob("*.html")):
         if path.name in SKIP:
             continue
+        stem = base_stem(path.name)
         entry: dict[str, Any] = {
             "file": path.name,
             "label": label_for(path.name),
         }
         source_run = source_run_for(path.name)
-        published_run = published_run_for(path.stem)
+        published_run = published_run_for(stem)
         run_id = source_run or published_run
         if run_id:
             entry["meta"] = run_id
             if source_run and (RUNS_ROOT / source_run).is_dir():
-                entry.update(sync_run_json(source_run, path.stem))
+                entry.update(sync_run_json(source_run, stem))
             else:
-                entry.update(sidecar_from_dir(run_id, path.stem))
+                entry.update(sidecar_from_dir(run_id, stem))
         reports.append(entry)
     return reports
 

@@ -1,7 +1,7 @@
 {
   "reports": [
     {
-      "file": "phase1_auth.html",
+      "file": "phase1_auth_round1.html",
       "label": "Auth",
       "meta": "20260830_131124",
       "files": {
@@ -26,7 +26,7 @@
       }
     },
     {
-      "file": "phase1_getme.html",
+      "file": "phase1_getme_round1.html",
       "label": "Get Me",
       "meta": "20260830_150414",
       "files": {
@@ -51,7 +51,13 @@
       }
     },
     {
-      "file": "phase1_text_to_sign.html",
+      "file": "phase1_healthcheck_dashboard_round_1.html",
+      "label": "Health Check",
+      "meta": "20260829_183010",
+      "files": {}
+    },
+    {
+      "file": "phase1_text_to_sign_round1.html",
       "label": "Text to Sign",
       "meta": "20260830_170247",
       "files": {
@@ -72,6 +78,31 @@
         "checks_pass_rate": 0.5964518882506287,
         "duration_p95_ms": 1656.1772732999998,
         "duration_avg_ms": 769.4744926297064,
+        "vus_max": 100
+      }
+    },
+    {
+      "file": "phase1_videolist_round1.html",
+      "label": "Video List",
+      "meta": "20260830_014647",
+      "files": {
+        "run_clock": "data/20260830_014647/run_clock.json",
+        "handle_summary": "data/20260830_014647/handle_summary.json",
+        "summary": "data/20260830_014647/summary_phase1_videolist.json"
+      },
+      "clock": {
+        "started_at": "2026-08-30T01:46:47+07:00",
+        "ended_at": "2026-08-30T02:49:04+07:00",
+        "elapsed": "1h 10s",
+        "duration_ms": 3610703.350469
+      },
+      "highlights": {
+        "http_reqs": 252904,
+        "http_req_rate": 70.04286296938515,
+        "http_fail_rate": 0,
+        "checks_pass_rate": 1,
+        "duration_p95_ms": 49.62454309999998,
+        "duration_avg_ms": 21.10375600259752,
         "vus_max": 100
       }
     }
