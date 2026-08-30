@@ -15,8 +15,10 @@ SKIP = {"index.html"}
 def label_for(name: str) -> str:
     stem = Path(name).stem
     stem = re.sub(r"^phase\d+_", "", stem)
-    stem = stem.replace("_", " ").strip()
-    return stem.title() if stem else name
+    parts = [p for p in stem.split("_") if p]
+    if not parts:
+        return name
+    return " ".join(p.upper() if p.lower() == "id" else p.capitalize() for p in parts)
 
 
 def run_meta_for(public_name: str) -> str | None:
