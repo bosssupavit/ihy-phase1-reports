@@ -1,0 +1,9 @@
+{
+  "name": "ihy-report-viewer",
+  "private": true,
+  "description": "Serve Phase 1 HTML report dashboards only",
+  "scripts": {
+    "start": "python3 serve.py",
+    "serve": "python3 serve.py --port 8080"
+  }
+}
