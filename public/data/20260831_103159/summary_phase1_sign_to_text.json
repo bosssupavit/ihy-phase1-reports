@@ -1,0 +1,213 @@
+{
+  "metrics": {
+    "phase_checks_passed": {
+      "count": 593,
+      "rate": 0.16291628702715436
+    },
+    "sign_ws_clean_close": {
+      "passes": 1757,
+      "fails": 6,
+      "value": 0.996596710153148
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 77,
+      "max": 100
+    },
+    "sign_ws_invalid_hand": {
+      "count": 0,
+      "rate": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "data_sent": {
+      "count": 3421320177,
+      "rate": 939947.3523911071
+    },
+    "sign_ws_abnormal_closes": {
+      "count": 6,
+      "rate": 0.0016483941351820002
+    },
+    "ws_msgs_received": {
+      "count": 526337,
+      "rate": 144.60180398821475
+    },
+    "ws_connecting": {
+      "avg": 684.8884544127238,
+      "min": 11.664567,
+      "med": 183.682449,
+      "max": 8886.816775,
+      "p(90)": 2105.4068138000002,
+      "p(95)": 2705.3081498999973,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "data_received": {
+      "rate": 33154.702354021436,
+      "count": 120680006
+    },
+    "checks": {
+      "passes": 5780,
+      "fails": 1272,
+      "value": 0.8196256381168463
+    },
+    "sign_ws_live_prediction_latency": {
+      "min": 1081,
+      "med": 86239,
+      "max": 226203,
+      "p(90)": 165356,
+      "p(95)": 177913,
+      "avg": 87307.61980446278
+    },
+    "ws_msgs_sent": {
+      "count": 413809,
+      "rate": 113.68672144758806
+    },
+    "iteration_duration": {
+      "max": 258363.240105,
+      "p(90)": 217462.11765290002,
+      "p(95)": 224642.96357185,
+      "avg": 168422.237320403,
+      "min": 1033.745549,
+      "med": 189557.66507500003
+    },
+    "sign_ws_got_commit": {
+      "passes": 569,
+      "fails": 1194,
+      "value": 0.3227453204764606
+    },
+    "group_duration": {
+      "p(90)": 216275.03629740002,
+      "p(95)": 223393.040777,
+      "avg": 167307.11242672638,
+      "min": 19.905608,
+      "med": 188344.052489,
+      "max": 257029.554777
+    },
+    "phase_checks_failed": {
+      "count": 1170,
+      "rate": 0.3214368563604901
+    },
+    "ws_sessions": {
+      "rate": 0.5052328024332831,
+      "count": 1839
+    },
+    "sign_ws_commits": {
+      "count": 1034,
+      "rate": 0.2840732559630314
+    },
+    "sign_ws_errors": {
+      "rate": 0.006593576540728001,
+      "count": 24,
+      "thresholds": {
+        "count<1": true
+      }
+    },
+    "iterations": {
+      "count": 1762,
+      "rate": 0.48407841103178073
+    },
+    "sign_ws_msg_latency": {
+      "avg": 86746.16885665756,
+      "min": 3,
+      "med": 82244.5,
+      "max": 254799,
+      "p(90)": 166473,
+      "p(95)": 181082.34999999998,
+      "thresholds": {
+        "p(95)<5000": true
+      }
+    },
+    "vus": {
+      "value": 0,
+      "min": 0,
+      "max": 100
+    },
+    "ws_session_duration": {
+      "max": 257029.238127,
+      "p(90)": 216202.4061952,
+      "p(95)": 223380.43450799998,
+      "avg": 167252.8802905457,
+      "min": 19.644598,
+      "med": 188132.807052
+    },
+    "sign_ws_messages": {
+      "count": 526334,
+      "rate": 144.60097979114715
+    },
+    "http_req_failed": {
+      "passes": 0,
+      "fails": 0,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    },
+    "sign_ws_got_live_prediction": {
+      "passes": 595,
+      "fails": 1168,
+      "thresholds": {
+        "rate>0.80": true
+      },
+      "value": 0.33749290981281904
+    },
+    "sign_ws_frames_sent": {
+      "count": 413807,
+      "rate": 113.68617198287633
+    },
+    "sign_ws_transport_errors": {
+      "count": 24,
+      "rate": 0.006593576540728001
+    },
+    "sign_ws_live_predictions": {
+      "count": 98907,
+      "rate": 27.172953121407684
+    }
+  },
+  "root_group": {
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "sign_to_text": {
+        "id": "b0ddb4900ce2e6f0f3eac686c380a639",
+        "groups": {},
+        "checks": {
+          "sign_to_text upgraded": {
+            "fails": 0,
+            "name": "sign_to_text upgraded",
+            "path": "::sign_to_text::sign_to_text upgraded",
+            "id": "cdbe54b29ea7acd10efd9e5fd4dddb3e",
+            "passes": 1763
+          },
+          "sign_to_text received messages": {
+            "name": "sign_to_text received messages",
+            "path": "::sign_to_text::sign_to_text received messages",
+            "id": "a933cbe5750952f7f32af961c388a1b5",
+            "passes": 1681,
+            "fails": 82
+          },
+          "sign_to_text no server error": {
+            "id": "9f8cab07bdd3910853ca670ae476b12a",
+            "passes": 1741,
+            "fails": 22,
+            "name": "sign_to_text no server error",
+            "path": "::sign_to_text::sign_to_text no server error"
+          },
+          "sign_to_text live_prediction": {
+            "name": "sign_to_text live_prediction",
+            "path": "::sign_to_text::sign_to_text live_prediction",
+            "id": "d57a25242b1215a741f2f747df8c98aa",
+            "passes": 595,
+            "fails": 1168
+          }
+        },
+        "name": "sign_to_text",
+        "path": "::sign_to_text"
+      }
+    },
+    "checks": {},
+    "name": "",
+    "path": ""
+  }
+}
