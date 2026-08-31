@@ -1,0 +1,213 @@
+{
+  "root_group": {
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "sign_to_text": {
+        "id": "b0ddb4900ce2e6f0f3eac686c380a639",
+        "groups": {},
+        "checks": {
+          "sign_to_text upgraded": {
+            "name": "sign_to_text upgraded",
+            "path": "::sign_to_text::sign_to_text upgraded",
+            "id": "cdbe54b29ea7acd10efd9e5fd4dddb3e",
+            "passes": 1988,
+            "fails": 0
+          },
+          "sign_to_text received messages": {
+            "passes": 1678,
+            "fails": 310,
+            "name": "sign_to_text received messages",
+            "path": "::sign_to_text::sign_to_text received messages",
+            "id": "a933cbe5750952f7f32af961c388a1b5"
+          },
+          "sign_to_text no server error": {
+            "name": "sign_to_text no server error",
+            "path": "::sign_to_text::sign_to_text no server error",
+            "id": "9f8cab07bdd3910853ca670ae476b12a",
+            "passes": 1955,
+            "fails": 33
+          },
+          "sign_to_text live_prediction": {
+            "passes": 601,
+            "fails": 1387,
+            "name": "sign_to_text live_prediction",
+            "path": "::sign_to_text::sign_to_text live_prediction",
+            "id": "d57a25242b1215a741f2f747df8c98aa"
+          }
+        },
+        "name": "sign_to_text",
+        "path": "::sign_to_text"
+      }
+    },
+    "checks": {}
+  },
+  "metrics": {
+    "sign_ws_abnormal_closes": {
+      "count": 22,
+      "rate": 0.006044117784597774
+    },
+    "sign_ws_invalid_hand": {
+      "rate": 0,
+      "count": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "sign_ws_got_live_prediction": {
+      "passes": 601,
+      "fails": 1387,
+      "thresholds": {
+        "rate>0.80": true
+      },
+      "value": 0.3023138832997988
+    },
+    "sign_ws_got_commit": {
+      "passes": 559,
+      "fails": 1429,
+      "value": 0.2811871227364185
+    },
+    "phase_checks_passed": {
+      "count": 597,
+      "rate": 0.16401537806385777
+    },
+    "http_req_failed": {
+      "passes": 0,
+      "fails": 0,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    },
+    "sign_ws_frames_sent": {
+      "count": 416007,
+      "rate": 114.29069578259846
+    },
+    "vus_max": {
+      "max": 100,
+      "value": 100,
+      "min": 100
+    },
+    "sign_ws_messages": {
+      "count": 527195,
+      "rate": 144.8376670659556
+    },
+    "ws_msgs_sent": {
+      "count": 416019,
+      "rate": 114.29399257411733
+    },
+    "sign_ws_transport_errors": {
+      "count": 38,
+      "rate": 0.010439839809759792
+    },
+    "ws_sessions": {
+      "count": 2070,
+      "rate": 0.568696537005336
+    },
+    "vus": {
+      "value": 3,
+      "min": 1,
+      "max": 100
+    },
+    "data_sent": {
+      "count": 3440809574,
+      "rate": 945302.6518012587
+    },
+    "iteration_duration": {
+      "p(95)": 221529.2121656,
+      "avg": 148224.48116071319,
+      "min": 1027.635281,
+      "med": 184720.15389299998,
+      "max": 249298.383642,
+      "p(90)": 214648.1834982
+    },
+    "sign_ws_msg_latency": {
+      "min": 4,
+      "med": 82430,
+      "max": 245206,
+      "p(90)": 166194,
+      "p(95)": 181048,
+      "avg": 86588.3797558394,
+      "thresholds": {
+        "p(95)<5000": true
+      }
+    },
+    "iterations": {
+      "count": 1988,
+      "rate": 0.5461684616263807
+    },
+    "sign_ws_live_prediction_latency": {
+      "p(95)": 177029,
+      "avg": 87175.12272563978,
+      "min": 1089,
+      "med": 87311,
+      "max": 243042,
+      "p(90)": 165139.90000000002
+    },
+    "ws_msgs_received": {
+      "count": 527198,
+      "rate": 144.83849126383532
+    },
+    "phase_checks_failed": {
+      "count": 1391,
+      "rate": 0.38215308356252287
+    },
+    "sign_ws_commits": {
+      "rate": 0.2794030812243607,
+      "count": 1017
+    },
+    "sign_ws_live_predictions": {
+      "count": 94642,
+      "rate": 26.001245244086476
+    },
+    "checks": {
+      "passes": 6222,
+      "fails": 1730,
+      "value": 0.7824446680080482
+    },
+    "ws_session_duration": {
+      "avg": 147045.62748931668,
+      "min": 17.407204,
+      "med": 183455.318675,
+      "max": 248279.066672,
+      "p(90)": 213476.95493940002,
+      "p(95)": 220395.2071229
+    },
+    "sign_ws_errors": {
+      "count": 38,
+      "rate": 0.010439839809759792,
+      "thresholds": {
+        "count<1": true
+      }
+    },
+    "ws_connecting": {
+      "max": 9643.291273,
+      "p(90)": 2035.8553710000012,
+      "p(95)": 2841.7079689499997,
+      "avg": 681.6723623188394,
+      "min": 12.546654,
+      "med": 153.917121,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "data_received": {
+      "count": 131057009,
+      "rate": 36005.6363133223
+    },
+    "sign_ws_clean_close": {
+      "passes": 1966,
+      "fails": 22,
+      "value": 0.9889336016096579
+    },
+    "group_duration": {
+      "min": 17.754742,
+      "med": 183578.66883049998,
+      "max": 248283.121668,
+      "p(90)": 213512.2462028,
+      "p(95)": 220395.64457665,
+      "avg": 147095.49316594432
+    }
+  }
+}
