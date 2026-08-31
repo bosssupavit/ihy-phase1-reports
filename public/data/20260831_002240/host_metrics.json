@@ -1,0 +1,10 @@
+{
+  "cpu_unit": "percent",
+  "ram_unit": "GiB",
+  "window_ict": "00:22–01:22",
+  "hosts": {
+    "ksc2": { "cpu_avg": 3.0, "cpu_max": 3.4, "ram_gib": 6.2, "ram_pct": 41 },
+    "ksc3": { "cpu_avg": 2.1, "cpu_max": 2.6, "ram_gib": 11.4, "ram_pct": 37 },
+    "gpu5090": { "cpu_avg": 6.8, "cpu_max": 8.3, "ram_gib": 6.3, "ram_pct": 10 }
+  }
+}

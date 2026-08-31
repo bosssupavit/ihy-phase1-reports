@@ -206,6 +206,20 @@ def read_json(path: Path) -> dict[str, Any] | None:
 
 
 def summarize_host_metrics(metrics: dict[str, Any]) -> dict[str, Any] | None:
+    hosts = metrics.get("hosts")
+    if isinstance(hosts, dict) and hosts:
+        out: dict[str, Any] = {
+            "hosts": hosts,
+            "cpu_unit": metrics.get("cpu_unit", "percent"),
+            "ram_unit": metrics.get("ram_unit", "GiB"),
+        }
+        if isinstance(metrics.get("window_ict"), str):
+            out["window_ict"] = metrics["window_ict"]
+        samples = metrics.get("samples")
+        if isinstance(samples, list):
+            out["sample_count"] = len(samples)
+        return out
+
     summary = metrics.get("summary")
     if isinstance(summary, dict) and any(
         k in summary for k in ("cpu_avg", "cpu_max", "ram_avg", "ram_max")

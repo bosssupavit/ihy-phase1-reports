@@ -420,19 +420,19 @@
 
       <section class="panel" id="compare-panel">
         <div class="panel-body">
-          <h2>CPU / RAM by period</h2>
+          <h2>CPU / RAM by period (ksc2 · ksc3 · gpu5090)</h2>
           <div class="compare-wrap">
             <table class="compare" id="compare-table">
               <thead>
                 <tr>
                   <th>Period</th>
-                  <th>Window</th>
-                  <th>Elapsed</th>
-                  <th>CPU avg</th>
-                  <th>CPU max</th>
-                  <th>RAM avg</th>
-                  <th>RAM max</th>
-                  <th>Metrics</th>
+                  <th>Window (ICT)</th>
+                  <th>ksc2 CPU</th>
+                  <th>ksc3 CPU</th>
+                  <th>gpu5090 CPU</th>
+                  <th>ksc2 RAM</th>
+                  <th>ksc3 RAM</th>
+                  <th>gpu5090 RAM</th>
                 </tr>
               </thead>
               <tbody id="compare-body"></tbody>
@@ -545,6 +545,20 @@
         return null;
       }
 
+      function fmtCpuPair(h) {
+        if (!h || h.cpu_avg == null) return "—";
+        return `${fmtNum(h.cpu_avg, 1)} / ${fmtNum(h.cpu_max, 1)}%`;
+      }
+
+      function fmtRamPair(h) {
+        if (!h || h.ram_gib == null) return "—";
+        return `${fmtNum(h.ram_gib, 1)} GiB · ${fmtNum(h.ram_pct, 0)}%`;
+      }
+
+      function hostCell(hosts, name) {
+        return (hosts && hosts[name]) || null;
+      }
+
       async function fetchHostMetrics(reports) {
         const out = new Map();
         await Promise.all(
@@ -555,7 +569,9 @@
               const res = await fetch(path, { cache: "no-store" });
               if (!res.ok) return;
               const data = await res.json();
-              if (data && (data.samples || data.summary)) out.set(report.file, data);
+              if (data && (data.samples || data.summary || data.hosts)) {
+                out.set(report.file, data);
+              }
             } catch (_) {
               /* missing file */
             }
@@ -734,19 +750,18 @@
         const withData = items.filter((item) => metricsByFile.has(item.report.file));
         if (!withData.length) {
           hint.textContent =
-            "No host_metrics.json yet. Add one per run at public/data/<run_id>/host_metrics.json — see examples/host_metrics.example.json.";
+            "No host_metrics.json yet. Add one per run at public/data/<run_id>/host_metrics.json.";
           return;
         }
-        hint.textContent = `${withData.length}/${items.length} periods have CPU/RAM time series.`;
+        hint.textContent = `${withData.length}/${items.length} periods have CPU/RAM data (avg / max).`;
 
         const overlayEntries = [];
         for (const item of withData) {
           const metrics = metricsByFile.get(item.report.file);
-          const stats = statsFromMetrics(metrics);
+          const hosts = metrics.hosts || {};
           const cpuUnit = metrics.cpu_unit || "percent";
-          const ramUnit = metrics.ram_unit || "MiB";
+          const ramUnit = metrics.ram_unit || "GiB";
           const { cpu, ram, start, end } = seriesFromMetrics(metrics, item.report.clock);
-          overlayEntries.push({ cpu, ram, start, end, color: item.color });
 
           const card = document.createElement("article");
           card.className = "chart-card";
@@ -754,77 +769,36 @@
           h3.textContent = item.report.label || item.report.file;
           const meta = document.createElement("p");
           meta.className = "chart-meta";
-          meta.textContent = `${item.report.meta || ""} · ${fmtShort(item.report.clock.started_at)} → ${fmtShort(item.report.clock.ended_at)}`;
+          meta.textContent = `${item.report.meta || ""} · ${metrics.window_ict || fmtShort(item.report.clock.started_at) + " → " + fmtShort(item.report.clock.ended_at)} ICT`;
           card.append(h3, meta);
 
-          const legend = document.createElement("div");
-          legend.className = "chart-legend";
-          legend.innerHTML = `<span class="cpu">CPU (${cpuUnit})</span><span class="ram">RAM (${ramUnit})</span>`;
-          card.appendChild(legend);
+          if (cpu.length || ram.length) {
+            overlayEntries.push({ cpu, ram, start, end, color: item.color });
+            const chart = makeHostTimeChart(cpu, ram, item.report.clock, cpuUnit, ramUnit);
+            if (chart) card.appendChild(chart);
+          }
 
-          const chart = makeHostTimeChart(
-            cpu,
-            ram,
-            item.report.clock,
-            cpuUnit,
-            ramUnit
-          );
-          if (chart) card.appendChild(chart);
+          if (Object.keys(hosts).length) {
+            const hostGrid = document.createElement("div");
+            hostGrid.className = "host-grid";
+            hostGrid.style.cssText =
+              "display:grid;gap:0.4rem;font-size:0.78rem;margin-top:0.5rem;";
+            for (const name of ["ksc2", "ksc3", "gpu5090"]) {
+              const h = hosts[name];
+              if (!h) continue;
+              const row = document.createElement("div");
+              row.textContent = `${name}  CPU ${fmtCpuPair(h)}  ·  RAM ${fmtRamPair(h)}`;
+              hostGrid.appendChild(row);
+            }
+            card.appendChild(hostGrid);
+          }
 
-          const statsEl = document.createElement("div");
-          statsEl.className = "chart-stats";
-          statsEl.innerHTML = `
-            <span>CPU avg <strong>${fmtHost(stats.cpu_avg, cpuUnit)}</strong></span>
-            <span>CPU max <strong>${fmtHost(stats.cpu_max, cpuUnit)}</strong></span>
-            <span>RAM avg <strong>${fmtHost(stats.ram_avg, ramUnit, 0)}</strong></span>
-            <span>RAM max <strong>${fmtHost(stats.ram_max, ramUnit, 0)}</strong></span>
-          `;
-          card.appendChild(statsEl);
           grid.appendChild(card);
         }
 
-        const overlay = makeNormalizedOverlay(overlayEntries);
-        if (overlay) overlayRoot.appendChild(overlay);
-
-        const cpuMaxAll = Math.max(
-          ...withData.map((item) => statsFromMetrics(metricsByFile.get(item.report.file)).cpu_max || 0)
-        );
-        const ramMaxAll = Math.max(
-          ...withData.map((item) => statsFromMetrics(metricsByFile.get(item.report.file)).ram_max || 0)
-        );
-        if (cpuMaxAll > 0 || ramMaxAll > 0) {
-          const bars = document.createElement("div");
-          bars.className = "bar-compare";
-          bars.innerHTML = "<div class='chart-meta'>Peak comparison across periods</div>";
-          for (const item of withData) {
-            const metrics = metricsByFile.get(item.report.file);
-            const stats = statsFromMetrics(metrics);
-            const cpuUnit = metrics.cpu_unit || "percent";
-            const ramUnit = metrics.ram_unit || "MiB";
-            for (const [kind, max, scale, unit] of [
-              ["CPU max", stats.cpu_max, cpuMaxAll, cpuUnit],
-              ["RAM max", stats.ram_max, ramMaxAll, ramUnit],
-            ]) {
-              const row = document.createElement("div");
-              row.className = "bar-row";
-              row.innerHTML = `<span>${item.report.label.replace(/ · Round \d+/, "")} ${kind}</span>`;
-              const track = document.createElement("div");
-              track.className = "bar-track";
-              const fill = document.createElement("div");
-              fill.className = `bar-fill ${kind.startsWith("CPU") ? "cpu" : "ram"}`;
-              fill.style.width = scale ? `${(max / scale) * 100}%` : "0%";
-              fill.title = fmtHost(max, unit, kind.startsWith("RAM") ? 0 : 1);
-              track.appendChild(fill);
-              row.appendChild(track);
-              const val = document.createElement("span");
-              val.textContent = fmtHost(max, unit, kind.startsWith("RAM") ? 0 : 1);
-              val.style.fontSize = "0.75rem";
-              val.style.color = "var(--muted)";
-              row.appendChild(val);
-              bars.appendChild(row);
-            }
-          }
-          overlayRoot.appendChild(bars);
+        if (overlayEntries.length) {
+          const overlay = makeNormalizedOverlay(overlayEntries);
+          if (overlay) overlayRoot.appendChild(overlay);
         }
       }
 
@@ -900,18 +874,20 @@
         }
         for (const item of items) {
           const r = item.report;
-          const host = r.host || {};
-          const cpuUnit = host.cpu_unit || "%";
-          const ramUnit = host.ram_unit || "MiB";
+          const hosts = (r.host && r.host.hosts) || {};
+          const window =
+            (r.host && r.host.window_ict) ||
+            `${fmtShort(r.clock.started_at)} → ${fmtShort(r.clock.ended_at)}`;
           const tr = document.createElement("tr");
           const cells = [
             r.label || r.file,
-            `${fmtShort(r.clock.started_at)} → ${fmtShort(r.clock.ended_at)}`,
-            r.clock.elapsed || "—",
-            fmtHost(host.cpu_avg, cpuUnit),
-            fmtHost(host.cpu_max, cpuUnit),
-            fmtHost(host.ram_avg, ramUnit, 0),
-            fmtHost(host.ram_max, ramUnit, 0),
+            window,
+            fmtCpuPair(hostCell(hosts, "ksc2")),
+            fmtCpuPair(hostCell(hosts, "ksc3")),
+            fmtCpuPair(hostCell(hosts, "gpu5090")),
+            fmtRamPair(hostCell(hosts, "ksc2")),
+            fmtRamPair(hostCell(hosts, "ksc3")),
+            fmtRamPair(hostCell(hosts, "gpu5090")),
           ];
           cells.forEach((text, idx) => {
             const td = document.createElement("td");
@@ -925,12 +901,6 @@
             }
             tr.appendChild(td);
           });
-          const status = document.createElement("td");
-          const badge = document.createElement("span");
-          badge.className = "badge " + (r.host ? "ok" : "missing");
-          badge.textContent = r.host ? "ready" : "awaiting file";
-          status.appendChild(badge);
-          tr.appendChild(status);
           body.appendChild(tr);
         }
       }
@@ -992,7 +962,17 @@
           }
 
           const host = report.host;
-          if (host) {
+          if (host && host.hosts) {
+            const row = document.createElement("div");
+            row.className = "host-row";
+            for (const name of ["ksc2", "ksc3", "gpu5090"]) {
+              const h = host.hosts[name];
+              if (!h) continue;
+              addStat(row, name + " CPU", fmtCpuPair(h), "cpu");
+              addStat(row, name + " RAM", fmtRamPair(h), "ram");
+            }
+            li.appendChild(row);
+          } else if (host) {
             const row = document.createElement("div");
             row.className = "host-row";
             const cpuUnit = host.cpu_unit || "%";
@@ -1041,14 +1021,23 @@
         for (const r of reports) {
           const m = metricsByFile.get(r.file);
           if (!m) continue;
-          const s = statsFromMetrics(m);
-          r.host = {
-            ...s,
-            cpu_unit: m.cpu_unit || "percent",
-            ram_unit: m.ram_unit || "MiB",
-            host: m.host,
-            sample_count: Array.isArray(m.samples) ? m.samples.length : undefined,
-          };
+          if (m.hosts) {
+            r.host = {
+              hosts: m.hosts,
+              cpu_unit: m.cpu_unit || "percent",
+              ram_unit: m.ram_unit || "GiB",
+              window_ict: m.window_ict,
+            };
+          } else {
+            const s = statsFromMetrics(m);
+            r.host = {
+              ...s,
+              cpu_unit: m.cpu_unit || "percent",
+              ram_unit: m.ram_unit || "MiB",
+              host: m.host,
+              sample_count: Array.isArray(m.samples) ? m.samples.length : undefined,
+            };
+          }
           r.files = r.files || {};
           if (!r.files.host_metrics && r.meta) {
             r.files.host_metrics = `data/${r.meta}/host_metrics.json`;

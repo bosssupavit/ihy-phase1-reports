@@ -8,7 +8,8 @@
       "files": {
         "run_clock": "data/20260830_131124/run_clock.json",
         "handle_summary": "data/20260830_131124/handle_summary.json",
-        "summary": "data/20260830_131124/summary_phase1_auth.json"
+        "summary": "data/20260830_131124/summary_phase1_auth.json",
+        "host_metrics": "data/20260830_131124/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T13:11:24+07:00",
@@ -24,6 +25,31 @@
         "duration_p95_ms": 471.1363904,
         "duration_avg_ms": 114.50750894503199,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 12.2,
+            "cpu_max": 18.6,
+            "ram_gib": 6.1,
+            "ram_pct": 41
+          },
+          "ksc3": {
+            "cpu_avg": 10.1,
+            "cpu_max": 14.7,
+            "ram_gib": 10.4,
+            "ram_pct": 34
+          },
+          "gpu5090": {
+            "cpu_avg": 0.1,
+            "cpu_max": 0.1,
+            "ram_gib": 6.0,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "13:11\u201314:11"
       }
     },
     {
@@ -34,7 +60,8 @@
       "files": {
         "run_clock": "data/20260830_150414/run_clock.json",
         "handle_summary": "data/20260830_150414/handle_summary.json",
-        "summary": "data/20260830_150414/summary_phase1_getme.json"
+        "summary": "data/20260830_150414/summary_phase1_getme.json",
+        "host_metrics": "data/20260830_150414/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T15:04:14+07:00",
@@ -50,6 +77,31 @@
         "duration_p95_ms": 66.93817734999999,
         "duration_avg_ms": 27.634706384783897,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 5.2,
+            "cpu_max": 7.2,
+            "ram_gib": 6.3,
+            "ram_pct": 42
+          },
+          "ksc3": {
+            "cpu_avg": 4.4,
+            "cpu_max": 5.9,
+            "ram_gib": 10.6,
+            "ram_pct": 35
+          },
+          "gpu5090": {
+            "cpu_avg": 0.1,
+            "cpu_max": 0.1,
+            "ram_gib": 6.0,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "15:04\u201316:04"
       }
     },
     {
@@ -60,7 +112,8 @@
       "files": {
         "run_clock": "data/20260830_192606/run_clock.json",
         "handle_summary": "data/20260830_192606/handle_summary.json",
-        "summary": "data/20260830_192606/summary_phase1_healthcheck.json"
+        "summary": "data/20260830_192606/summary_phase1_healthcheck.json",
+        "host_metrics": "data/20260830_192606/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T19:26:06+07:00",
@@ -76,6 +129,31 @@
         "duration_p95_ms": 83.80074719999992,
         "duration_avg_ms": 17.36359393863514,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 2.1,
+            "cpu_max": 2.7,
+            "ram_gib": 6.3,
+            "ram_pct": 42
+          },
+          "ksc3": {
+            "cpu_avg": 0.8,
+            "cpu_max": 1.1,
+            "ram_gib": 10.7,
+            "ram_pct": 35
+          },
+          "gpu5090": {
+            "cpu_avg": 0.1,
+            "cpu_max": 0.1,
+            "ram_gib": 6.2,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "19:26\u201320:27"
       }
     },
     {
@@ -86,7 +164,8 @@
       "files": {
         "run_clock": "data/20260830_203259/run_clock.json",
         "handle_summary": "data/20260830_203259/handle_summary.json",
-        "summary": "data/20260830_203259/summary_phase1_sign_to_text.json"
+        "summary": "data/20260830_203259/summary_phase1_sign_to_text.json",
+        "host_metrics": "data/20260830_203259/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T20:32:59+07:00",
@@ -98,6 +177,31 @@
         "http_fail_rate": 0,
         "checks_pass_rate": 0.8266467065868264,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 1.6,
+            "cpu_max": 1.6,
+            "ram_gib": 6.3,
+            "ram_pct": 42
+          },
+          "ksc3": {
+            "cpu_avg": 4.5,
+            "cpu_max": 4.7,
+            "ram_gib": 10.9,
+            "ram_pct": 36
+          },
+          "gpu5090": {
+            "cpu_avg": 0.1,
+            "cpu_max": 0.2,
+            "ram_gib": 6.2,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "20:32\u201321:33"
       }
     },
     {
@@ -130,7 +234,8 @@
       "files": {
         "run_clock": "data/20260830_170247/run_clock.json",
         "handle_summary": "data/20260830_170247/handle_summary.json",
-        "summary": "data/20260830_170247/summary_phase1_text_to_sign.json"
+        "summary": "data/20260830_170247/summary_phase1_text_to_sign.json",
+        "host_metrics": "data/20260830_170247/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T17:02:47+07:00",
@@ -146,6 +251,31 @@
         "duration_p95_ms": 1656.1772732999998,
         "duration_avg_ms": 769.4744926297064,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 2.6,
+            "cpu_max": 3.0,
+            "ram_gib": 6.2,
+            "ram_pct": 41
+          },
+          "ksc3": {
+            "cpu_avg": 1.6,
+            "cpu_max": 1.7,
+            "ram_gib": 10.7,
+            "ram_pct": 35
+          },
+          "gpu5090": {
+            "cpu_avg": 6.7,
+            "cpu_max": 7.6,
+            "ram_gib": 6.1,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "17:02\u201318:03"
       }
     },
     {
@@ -156,7 +286,8 @@
       "files": {
         "run_clock": "data/20260831_002240/run_clock.json",
         "handle_summary": "data/20260831_002240/handle_summary.json",
-        "summary": "data/20260831_002240/summary_phase1_text_to_sign.json"
+        "summary": "data/20260831_002240/summary_phase1_text_to_sign.json",
+        "host_metrics": "data/20260831_002240/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-31T00:22:40+07:00",
@@ -172,6 +303,31 @@
         "duration_p95_ms": 1586.316596,
         "duration_avg_ms": 1061.0352071833622,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 3.0,
+            "cpu_max": 3.4,
+            "ram_gib": 6.2,
+            "ram_pct": 41
+          },
+          "ksc3": {
+            "cpu_avg": 2.1,
+            "cpu_max": 2.6,
+            "ram_gib": 11.4,
+            "ram_pct": 37
+          },
+          "gpu5090": {
+            "cpu_avg": 6.8,
+            "cpu_max": 8.3,
+            "ram_gib": 6.3,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "00:22\u201301:22"
       }
     },
     {
@@ -182,7 +338,8 @@
       "files": {
         "run_clock": "data/20260830_014647/run_clock.json",
         "handle_summary": "data/20260830_014647/handle_summary.json",
-        "summary": "data/20260830_014647/summary_phase1_videolist.json"
+        "summary": "data/20260830_014647/summary_phase1_videolist.json",
+        "host_metrics": "data/20260830_014647/host_metrics.json"
       },
       "clock": {
         "started_at": "2026-08-30T01:46:47+07:00",
@@ -198,6 +355,31 @@
         "duration_p95_ms": 49.62454309999998,
         "duration_avg_ms": 21.10375600259752,
         "vus_max": 100
+      },
+      "host": {
+        "hosts": {
+          "ksc2": {
+            "cpu_avg": 3.4,
+            "cpu_max": 4.6,
+            "ram_gib": 5.3,
+            "ram_pct": 35
+          },
+          "ksc3": {
+            "cpu_avg": 2.3,
+            "cpu_max": 3.4,
+            "ram_gib": 4.6,
+            "ram_pct": 15
+          },
+          "gpu5090": {
+            "cpu_avg": 0.2,
+            "cpu_max": 0.2,
+            "ram_gib": 6.0,
+            "ram_pct": 10
+          }
+        },
+        "cpu_unit": "percent",
+        "ram_unit": "GiB",
+        "window_ict": "01:46\u201302:49"
       }
     }
   ]
