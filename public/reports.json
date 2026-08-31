@@ -2,7 +2,8 @@
   "reports": [
     {
       "file": "phase1_auth_round1.html",
-      "label": "Auth",
+      "label": "Auth \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_131124",
       "files": {
         "run_clock": "data/20260830_131124/run_clock.json",
@@ -27,7 +28,8 @@
     },
     {
       "file": "phase1_getme_round1.html",
-      "label": "Get Me",
+      "label": "Get Me \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_150414",
       "files": {
         "run_clock": "data/20260830_150414/run_clock.json",
@@ -52,7 +54,8 @@
     },
     {
       "file": "phase1_healthcheck_round1.html",
-      "label": "Health Check",
+      "label": "Health Check \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_192606",
       "files": {
         "run_clock": "data/20260830_192606/run_clock.json",
@@ -77,7 +80,8 @@
     },
     {
       "file": "phase1_sign_to_text_round1.html",
-      "label": "Sign to Text",
+      "label": "Sign to Text \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_203259",
       "files": {
         "run_clock": "data/20260830_203259/run_clock.json",
@@ -98,7 +102,8 @@
     },
     {
       "file": "phase1_text_to_sign_round1.html",
-      "label": "Text to Sign",
+      "label": "Text to Sign \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_170247",
       "files": {
         "run_clock": "data/20260830_170247/run_clock.json",
@@ -122,8 +127,35 @@
       }
     },
     {
+      "file": "phase1_text_to_sign_round2.html",
+      "label": "Text to Sign \u00b7 Round 2",
+      "round": 2,
+      "meta": "20260831_002240",
+      "files": {
+        "run_clock": "data/20260831_002240/run_clock.json",
+        "handle_summary": "data/20260831_002240/handle_summary.json",
+        "summary": "data/20260831_002240/summary_phase1_text_to_sign.json"
+      },
+      "clock": {
+        "started_at": "2026-08-31T00:22:40+07:00",
+        "ended_at": "2026-08-31T01:22:54+07:00",
+        "elapsed": "1h 11s",
+        "duration_ms": 3611319.262395
+      },
+      "highlights": {
+        "http_reqs": 223085,
+        "http_req_rate": 61.77382385517798,
+        "http_fail_rate": 0.0007351457964453011,
+        "checks_pass_rate": 0.9992648542035547,
+        "duration_p95_ms": 1586.316596,
+        "duration_avg_ms": 1061.0352071833622,
+        "vus_max": 100
+      }
+    },
+    {
       "file": "phase1_videolist_round1.html",
-      "label": "Video List",
+      "label": "Video List \u00b7 Round 1",
+      "round": 1,
       "meta": "20260830_014647",
       "files": {
         "run_clock": "data/20260830_014647/run_clock.json",

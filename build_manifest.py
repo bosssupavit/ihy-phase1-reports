@@ -21,6 +21,9 @@ LABEL_OVERRIDES = {
 }
 SECRET_HEADER_KEYS = {"authorization", "cookie", "set-cookie", "x-api-key"}
 BEARER_RE = re.compile(r"Bearer\s+[A-Za-z0-9\-._~+/]+=*", re.I)
+RUN_LINKS_PATH = ROOT / "run_links.json"
+
+
 def base_stem(public_name: str) -> str:
     """Map public filenames to run artifact stems.
 
@@ -33,19 +36,45 @@ def base_stem(public_name: str) -> str:
     return stem
 
 
+def round_for(public_name: str) -> int | None:
+    m = re.search(r"_round_?(\d+)$", Path(public_name).stem, re.I)
+    return int(m.group(1)) if m else None
+
+
+def load_run_links() -> dict[str, str]:
+    if not RUN_LINKS_PATH.is_file():
+        return {}
+    data = json.loads(RUN_LINKS_PATH.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        return {}
+    return {str(k): str(v) for k, v in data.items()}
+
+
+def save_run_links(links: dict[str, str]) -> None:
+    RUN_LINKS_PATH.write_text(
+        json.dumps(dict(sorted(links.items())), indent=2) + "\n", encoding="utf-8"
+    )
+
+
 def label_for(name: str) -> str:
     stem = re.sub(r"^phase\d+_", "", base_stem(name))
     if stem in LABEL_OVERRIDES:
-        return LABEL_OVERRIDES[stem]
-    parts = [p for p in stem.split("_") if p]
-    if not parts:
-        return name
-    return " ".join(p.upper() if p.lower() == "id" else p.capitalize() for p in parts)
+        label = LABEL_OVERRIDES[stem]
+    else:
+        parts = [p for p in stem.split("_") if p]
+        if not parts:
+            label = name
+        else:
+            label = " ".join(
+                p.upper() if p.lower() == "id" else p.capitalize() for p in parts
+            )
+    rnd = round_for(name)
+    if rnd is not None:
+        label = f"{label} · Round {rnd}"
+    return label
 
 
-def source_run_for(public_name: str) -> str | None:
-    """Newest run folder that has a matching *_dashboard.html source."""
-    stem = base_stem(public_name)
+def matching_source_runs(stem: str) -> list[str]:
     matches: list[str] = []
     for run_dir in RUNS_ROOT.glob("20*"):
         if not run_dir.is_dir():
@@ -54,7 +83,26 @@ def source_run_for(public_name: str) -> str | None:
             run_dir / f"{stem}.html"
         ).is_file():
             matches.append(run_dir.name)
-    return max(matches) if matches else None
+    return sorted(matches)
+
+
+def resolve_run_id(public_name: str, stem: str, links: dict[str, str]) -> str | None:
+    if public_name in links:
+        return links[public_name]
+    matches = matching_source_runs(stem)
+    if not matches:
+        return None
+    rnd = round_for(public_name)
+    if rnd is not None and len(matches) >= rnd:
+        return matches[rnd - 1]
+    return matches[-1]
+
+
+def source_run_for(public_name: str) -> str | None:
+    """Run folder for this public report file."""
+    stem = base_stem(public_name)
+    links = load_run_links()
+    return resolve_run_id(public_name, stem, links)
 
 
 def published_run_for(report_stem: str) -> str | None:
@@ -291,25 +339,30 @@ def sync_run_json(run_id: str, report_stem: str) -> dict[str, Any]:
 
 def collect_reports() -> list[dict[str, Any]]:
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
+    links = load_run_links()
     reports: list[dict[str, Any]] = []
     for path in sorted(ROOT.glob("*.html")):
         if path.name in SKIP:
             continue
         stem = base_stem(path.name)
+        run_id = resolve_run_id(path.name, stem, links)
+        if run_id and path.name not in links:
+            links[path.name] = run_id
         entry: dict[str, Any] = {
             "file": path.name,
             "label": label_for(path.name),
         }
-        source_run = source_run_for(path.name)
-        published_run = published_run_for(stem)
-        run_id = source_run or published_run
+        rnd = round_for(path.name)
+        if rnd is not None:
+            entry["round"] = rnd
         if run_id:
             entry["meta"] = run_id
-            if source_run and (RUNS_ROOT / source_run).is_dir():
-                entry.update(sync_run_json(source_run, stem))
+            if (RUNS_ROOT / run_id).is_dir():
+                entry.update(sync_run_json(run_id, path.name))
             else:
-                entry.update(sidecar_from_dir(run_id, stem))
+                entry.update(sidecar_from_dir(run_id, path.name))
         reports.append(entry)
+    save_run_links(links)
     return reports
 
 
