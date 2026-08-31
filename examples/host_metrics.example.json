@@ -1,5 +1,5 @@
 {
-  "host": "example-host-or-pod",
+  "host": "ihy-api-pod-01",
   "cpu_unit": "percent",
   "ram_unit": "MiB",
   "summary": {
