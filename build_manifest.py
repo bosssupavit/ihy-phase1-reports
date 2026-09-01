@@ -375,6 +375,10 @@ def collect_reports() -> list[dict[str, Any]]:
                 entry.update(sync_run_json(run_id, path.name))
             else:
                 entry.update(sidecar_from_dir(run_id, path.name))
+        vus = (entry.get("highlights") or {}).get("vus_max")
+        if vus is not None and int(vus) != 100:
+            entry["vus"] = int(vus)
+            entry["label"] = f"{entry['label']} · {int(vus)} VUs"
         reports.append(entry)
     save_run_links(links)
     return reports
