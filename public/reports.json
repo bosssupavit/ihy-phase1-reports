@@ -276,6 +276,28 @@
       }
     },
     {
+      "file": "phase1_sign_to_text_round4.html",
+      "label": "Sign to Text \u00b7 Round 4",
+      "round": 4,
+      "meta": "20260901_155529",
+      "files": {
+        "run_clock": "data/20260901_155529/run_clock.json",
+        "handle_summary": "data/20260901_155529/handle_summary.json",
+        "summary": "data/20260901_155529/summary_phase1_sign_to_text.json"
+      },
+      "clock": {
+        "started_at": "2026-09-01T15:55:29+07:00",
+        "ended_at": "2026-09-01T16:56:18+07:00",
+        "elapsed": "1h 40s",
+        "duration_ms": 3640118.405529
+      },
+      "highlights": {
+        "http_fail_rate": 0,
+        "checks_pass_rate": 0.7344052692754747,
+        "vus_max": 100
+      }
+    },
+    {
       "file": "phase1_text_to_sign_round1.html",
       "label": "Text to Sign \u00b7 Round 1",
       "round": 1,

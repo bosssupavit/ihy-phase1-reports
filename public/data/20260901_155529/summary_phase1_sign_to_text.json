@@ -1,0 +1,259 @@
+{
+  "root_group": {
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "sign_to_text": {
+        "path": "::sign_to_text",
+        "id": "b0ddb4900ce2e6f0f3eac686c380a639",
+        "groups": {},
+        "checks": {
+          "sign_to_text upgraded": {
+            "passes": 2581,
+            "fails": 0,
+            "name": "sign_to_text upgraded",
+            "path": "::sign_to_text::sign_to_text upgraded",
+            "id": "cdbe54b29ea7acd10efd9e5fd4dddb3e"
+          },
+          "sign_to_text received messages": {
+            "name": "sign_to_text received messages",
+            "path": "::sign_to_text::sign_to_text received messages",
+            "id": "a933cbe5750952f7f32af961c388a1b5",
+            "passes": 1767,
+            "fails": 814
+          },
+          "sign_to_text no server error": {
+            "name": "sign_to_text no server error",
+            "path": "::sign_to_text::sign_to_text no server error",
+            "id": "9f8cab07bdd3910853ca670ae476b12a",
+            "passes": 2511,
+            "fails": 70
+          },
+          "sign_to_text live_prediction": {
+            "path": "::sign_to_text::sign_to_text live_prediction",
+            "id": "d57a25242b1215a741f2f747df8c98aa",
+            "passes": 723,
+            "fails": 1858,
+            "name": "sign_to_text live_prediction"
+          }
+        },
+        "name": "sign_to_text"
+      }
+    },
+    "checks": {}
+  },
+  "metrics": {
+    "sign_ws_got_live_prediction": {
+      "fails": 1858,
+      "passes": 723,
+      "thresholds": {
+        "rate>0.80": true
+      },
+      "value": 0.28012398295234403
+    },
+    "ws_sessions": {
+      "count": 2660,
+      "rate": 0.7307454603563742
+    },
+    "iterations": {
+      "count": 2580,
+      "rate": 0.708768153277987
+    },
+    "sign_ws_frames_sent": {
+      "count": 436288,
+      "rate": 119.8554418826924
+    },
+    "vus": {
+      "min": 1,
+      "max": 100,
+      "value": 2
+    },
+    "ws_session_duration": {
+      "p(90)": 201863.820034,
+      "p(95)": 210047.608248,
+      "avg": 113791.58183399306,
+      "min": 21.207137,
+      "med": 161553.830887,
+      "max": 250158.686319
+    },
+    "data_sent": {
+      "count": 3606356388,
+      "rate": 990725.022164741
+    },
+    "ws_msgs_received": {
+      "count": 555773,
+      "rate": 152.6799235859561
+    },
+    "sign_ws_transport_errors": {
+      "count": 90,
+      "rate": 0.024724470463185592
+    },
+    "sign_ws_abnormal_closes": {
+      "count": 58,
+      "rate": 0.015933547631830716
+    },
+    "sign_ws_errors": {
+      "count": 90,
+      "rate": 0.024724470463185592,
+      "thresholds": {
+        "count<1": true
+      }
+    },
+    "ws_connecting": {
+      "med": 439.055697,
+      "max": 7972.293753,
+      "p(90)": 1852.7448762,
+      "p(95)": 2534.2242195999993,
+      "avg": 700.9460272387233,
+      "min": 12.687109,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "sign_ws_msg_latency": {
+      "avg": 516.9506783110445,
+      "min": 2,
+      "med": 81,
+      "max": 15487,
+      "p(90)": 1537,
+      "p(95)": 2434,
+      "thresholds": {
+        "p(95)<5000": false
+      }
+    },
+    "sign_ws_sessions_with_drops": {
+      "passes": 0,
+      "fails": 2581,
+      "value": 0
+    },
+    "sign_ws_live_prediction_latency": {
+      "max": 13462,
+      "p(90)": 1055,
+      "p(95)": 1961,
+      "avg": 384.797413926121,
+      "min": 2,
+      "med": 38
+    },
+    "sign_ws_commits": {
+      "count": 1281,
+      "rate": 0.35191162959267497
+    },
+    "phase_checks_failed": {
+      "count": 1861,
+      "rate": 0.5112471059109821
+    },
+    "http_req_failed": {
+      "passes": 0,
+      "fails": 0,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    },
+    "iteration_duration": {
+      "avg": 114996.5206904105,
+      "min": 1028.09904,
+      "med": 162827.4663985,
+      "max": 251167.277276,
+      "p(90)": 203056.8854295,
+      "p(95)": 211136.6467602
+    },
+    "sign_ws_min_frames": {
+      "avg": 12,
+      "min": 12,
+      "med": 12,
+      "max": 12,
+      "p(90)": 12,
+      "p(95)": 12
+    },
+    "sign_ws_clean_close": {
+      "passes": 2523,
+      "fails": 58,
+      "value": 0.9775280898876404
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 100,
+      "max": 100
+    },
+    "sign_ws_live_predictions": {
+      "count": 117166,
+      "rate": 32.18741451432893
+    },
+    "phase_checks_passed": {
+      "rate": 0.19779576370548474,
+      "count": 720
+    },
+    "sign_ws_got_commit": {
+      "fails": 1925,
+      "passes": 656,
+      "value": 0.254165052305308
+    },
+    "sign_ws_messages": {
+      "count": 555773,
+      "rate": 152.6799235859561
+    },
+    "checks": {
+      "passes": 7582,
+      "fails": 2742,
+      "value": 0.7344052692754747
+    },
+    "data_received": {
+      "count": 145345822,
+      "rate": 39928.87203318257
+    },
+    "sign_ws_window_ready": {
+      "passes": 17136,
+      "fails": 538636,
+      "value": 0.03083278754597209
+    },
+    "sign_ws_invalid_hand": {
+      "rate": 0,
+      "count": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "sign_ws_unanswered_frames": {
+      "rate": 0.2483435699857753,
+      "count": 904
+    },
+    "sign_ws_num_frames": {
+      "p(95)": 8,
+      "avg": 2.7828048192424233,
+      "min": 0,
+      "med": 1,
+      "max": 181,
+      "p(90)": 5
+    },
+    "sign_ws_frames_dropped": {
+      "med": 0,
+      "max": 0,
+      "p(90)": 0,
+      "p(95)": 0,
+      "avg": 0,
+      "min": 0
+    },
+    "sign_ws_session_elapsed": {
+      "p(95)": 209516,
+      "avg": 113080.52305308021,
+      "min": 3,
+      "med": 160739,
+      "max": 250137,
+      "p(90)": 201045
+    },
+    "group_duration": {
+      "p(90)": 201905.513609,
+      "p(95)": 210112.865918,
+      "avg": 113889.8238210207,
+      "min": 21.513835,
+      "med": 161647.018686,
+      "max": 250158.894587
+    },
+    "ws_msgs_sent": {
+      "rate": 119.8554418826924,
+      "count": 436288
+    }
+  }
+}
