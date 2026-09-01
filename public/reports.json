@@ -157,9 +157,9 @@
       }
     },
     {
-      "file": "phase1_healthcheck_round3.html",
-      "label": "Health Check \u00b7 Round 3 \u00b7 300 VUs",
-      "round": 3,
+      "file": "phase1_healthcheck_round2.html",
+      "label": "Health Check \u00b7 Round 2 \u00b7 300 VUs",
+      "round": 2,
       "meta": "20260901_025302",
       "files": {
         "run_clock": "data/20260901_025302/run_clock.json",
