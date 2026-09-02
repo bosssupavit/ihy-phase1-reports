@@ -1,0 +1,259 @@
+{
+  "metrics": {
+    "sign_ws_window_ready": {
+      "passes": 17846,
+      "fails": 535957,
+      "value": 0.03222445526658396
+    },
+    "sign_ws_errors": {
+      "count": 27,
+      "rate": 0.007416951643351697,
+      "thresholds": {
+        "count<1": true
+      }
+    },
+    "sign_ws_live_predictions": {
+      "count": 110558,
+      "rate": 30.37049406613618
+    },
+    "sign_ws_got_commit": {
+      "passes": 642,
+      "fails": 1193,
+      "value": 0.34986376021798365
+    },
+    "phase_checks_failed": {
+      "count": 1150,
+      "rate": 0.31590719962423897
+    },
+    "vus": {
+      "min": 0,
+      "max": 100,
+      "value": 5
+    },
+    "ws_msgs_sent": {
+      "count": 431857,
+      "rate": 118.63194392010867
+    },
+    "sign_ws_min_frames": {
+      "avg": 12,
+      "min": 12,
+      "med": 12,
+      "max": 12,
+      "p(90)": 12,
+      "p(95)": 12
+    },
+    "sign_ws_sessions_with_drops": {
+      "passes": 0,
+      "fails": 1835,
+      "value": 0
+    },
+    "checks": {
+      "passes": 6086,
+      "fails": 1254,
+      "value": 0.8291553133514986
+    },
+    "data_sent": {
+      "count": 3570129816,
+      "rate": 980721.4891022256
+    },
+    "sign_ws_frames_sent": {
+      "count": 431856,
+      "rate": 118.63166921819594
+    },
+    "sign_ws_msg_latency": {
+      "p(95)": 2454,
+      "avg": 510.3550942504667,
+      "min": 2,
+      "med": 68,
+      "max": 11868,
+      "p(90)": 1570,
+      "thresholds": {
+        "p(95)<5000": false
+      }
+    },
+    "sign_ws_commits": {
+      "count": 1190,
+      "rate": 0.32689527613290814
+    },
+    "sign_ws_messages": {
+      "count": 553804,
+      "rate": 152.13101807017568
+    },
+    "data_received": {
+      "count": 139023086,
+      "rate": 38189.90763598238
+    },
+    "iteration_duration": {
+      "avg": 161898.08140627283,
+      "min": 1049.306994,
+      "med": 180251.543047,
+      "max": 254510.323938,
+      "p(90)": 209365.3006174,
+      "p(95)": 217971.2195728
+    },
+    "phase_checks_passed": {
+      "count": 685,
+      "rate": 0.18817081021095972
+    },
+    "sign_ws_invalid_hand": {
+      "count": 0,
+      "rate": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "sign_ws_abnormal_closes": {
+      "count": 6,
+      "rate": 0.001648211476300377
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 48,
+      "max": 100
+    },
+    "sign_ws_num_frames": {
+      "avg": 2.810149096339312,
+      "min": 0,
+      "med": 1,
+      "max": 181,
+      "p(90)": 5,
+      "p(95)": 8
+    },
+    "ws_sessions": {
+      "count": 1915,
+      "rate": 0.526054162852537
+    },
+    "ws_connecting": {
+      "p(90)": 1613.394884,
+      "p(95)": 2146.0751287999997,
+      "avg": 602.2727491075725,
+      "min": 12.080427,
+      "med": 352.153876,
+      "max": 10351.884424,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "sign_ws_session_elapsed": {
+      "min": 3,
+      "med": 177937,
+      "max": 250000,
+      "p(90)": 207782.80000000002,
+      "p(95)": 216354.8,
+      "avg": 160043.60108991826
+    },
+    "group_duration": {
+      "avg": 160782.65094525606,
+      "min": 20.574829,
+      "med": 179192.295239,
+      "max": 253476.368417,
+      "p(90)": 208276.0026414,
+      "p(95)": 216929.0853061
+    },
+    "sign_ws_transport_errors": {
+      "count": 27,
+      "rate": 0.007416951643351697
+    },
+    "iterations": {
+      "count": 1835,
+      "rate": 0.5040780098351987
+    },
+    "sign_ws_frames_dropped": {
+      "avg": 0,
+      "min": 0,
+      "med": 0,
+      "max": 0,
+      "p(90)": 0,
+      "p(95)": 0
+    },
+    "ws_session_duration": {
+      "med": 179063.224309,
+      "max": 253468.302839,
+      "p(90)": 208046.2948128,
+      "p(95)": 216838.0748475,
+      "avg": 160651.8051425671,
+      "min": 20.271872
+    },
+    "ws_msgs_received": {
+      "count": 553804,
+      "rate": 152.13101807017568
+    },
+    "sign_ws_unanswered_frames": {
+      "count": 89,
+      "rate": 0.024448470231788928
+    },
+    "sign_ws_live_prediction_latency": {
+      "med": 34,
+      "max": 10575,
+      "p(90)": 1109.199999999997,
+      "p(95)": 2056,
+      "avg": 392.8816969881948,
+      "min": 2
+    },
+    "sign_ws_clean_close": {
+      "passes": 1829,
+      "fails": 6,
+      "value": 0.9967302452316076
+    },
+    "sign_ws_got_live_prediction": {
+      "passes": 689,
+      "fails": 1146,
+      "thresholds": {
+        "rate>0.80": true
+      },
+      "value": 0.3754768392370572
+    },
+    "http_req_failed": {
+      "passes": 0,
+      "fails": 0,
+      "thresholds": {
+        "rate<0.05": false
+      },
+      "value": 0
+    }
+  },
+  "root_group": {
+    "groups": {
+      "sign_to_text": {
+        "name": "sign_to_text",
+        "path": "::sign_to_text",
+        "id": "b0ddb4900ce2e6f0f3eac686c380a639",
+        "groups": {},
+        "checks": {
+          "sign_to_text upgraded": {
+            "name": "sign_to_text upgraded",
+            "path": "::sign_to_text::sign_to_text upgraded",
+            "id": "cdbe54b29ea7acd10efd9e5fd4dddb3e",
+            "passes": 1835,
+            "fails": 0
+          },
+          "sign_to_text received messages": {
+            "name": "sign_to_text received messages",
+            "path": "::sign_to_text::sign_to_text received messages",
+            "id": "a933cbe5750952f7f32af961c388a1b5",
+            "passes": 1753,
+            "fails": 82
+          },
+          "sign_to_text no server error": {
+            "path": "::sign_to_text::sign_to_text no server error",
+            "id": "9f8cab07bdd3910853ca670ae476b12a",
+            "passes": 1809,
+            "fails": 26,
+            "name": "sign_to_text no server error"
+          },
+          "sign_to_text live_prediction": {
+            "name": "sign_to_text live_prediction",
+            "path": "::sign_to_text::sign_to_text live_prediction",
+            "id": "d57a25242b1215a741f2f747df8c98aa",
+            "passes": 689,
+            "fails": 1146
+          }
+        }
+      }
+    },
+    "checks": {},
+    "name": "",
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e"
+  }
+}
