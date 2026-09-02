@@ -1,0 +1,573 @@
+{
+  "metrics": {
+    "sign_ws_got_live_prediction{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "passes": 223,
+      "fails": 1507,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.12890173410404623
+    },
+    "phase_checks_failed": {
+      "count": 11158,
+      "rate": 3.0769910541367995
+    },
+    "ws_msgs_sent": {
+      "count": 390372,
+      "rate": 107.65111595137934
+    },
+    "ws_msgs_received": {
+      "count": 509957,
+      "rate": 140.6285290369636
+    },
+    "sign_ws_live_predictions": {
+      "count": 11038,
+      "rate": 3.0438991983834014
+    },
+    "sign_ws_invalid_hand": {
+      "count": 0,
+      "rate": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "sign_ws_msg_latency": {
+      "med": 25,
+      "max": 6257,
+      "p(90)": 557,
+      "p(95)": 964,
+      "avg": 197.03319711507666,
+      "min": 2,
+      "thresholds": {
+        "p(95)<5000": false
+      }
+    },
+    "sign_ws_session_elapsed{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "min": 4,
+      "med": 22531,
+      "max": 36664,
+      "p(90)": 27518,
+      "p(95)": 28878.199999999997,
+      "avg": 21869.62990291262,
+      "thresholds": {
+        "p(95)>=0": false
+      }
+    },
+    "sign_ws_window_ready": {
+      "fails": 502803,
+      "passes": 7154,
+      "value": 0.014028633786770257
+    },
+    "sign_ws_got_commit{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "passes": 178,
+      "fails": 2184,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.07535986452159187
+    },
+    "sign_ws_unanswered_frames{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "count": 13,
+      "rate": 0.0035849510399514604,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_silent_sessions{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "count": 14,
+      "rate": 0.003860716504563111,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_silent_sessions": {
+      "count": 66,
+      "rate": 0.018200520664368953
+    },
+    "sign_ws_clean_close{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "passes": 2361,
+      "fails": 1,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.9995766299745978
+    },
+    "sign_ws_clean_close{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "passes": 1730,
+      "fails": 0,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 1
+    },
+    "sign_ws_silent_sessions{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "rate": 0.0024818891815048573,
+      "count": 9,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_frames_dropped": {
+      "avg": 0,
+      "min": 0,
+      "med": 0,
+      "max": 0,
+      "p(90)": 0,
+      "p(95)": 0
+    },
+    "sign_ws_clean_close{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "passes": 2671,
+      "fails": 0,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 1
+    },
+    "sign_ws_session_elapsed{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "min": 5,
+      "med": 24696,
+      "max": 39892,
+      "p(90)": 29916.600000000002,
+      "p(95)": 31513.75,
+      "avg": 23933.62150719729,
+      "thresholds": {
+        "p(95)>=0": false
+      }
+    },
+    "sign_ws_got_live_prediction{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "fails": 2491,
+      "passes": 180,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.06739049045301385
+    },
+    "sign_ws_session_frames_sent{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "avg": 29.85359223300971,
+      "min": 1,
+      "med": 30,
+      "max": 30,
+      "p(90)": 30,
+      "p(95)": 30,
+      "thresholds": {
+        "avg>=0": false
+      }
+    },
+    "group_duration": {
+      "p(90)": 33818.04555380001,
+      "p(95)": 37902.41024860001,
+      "avg": 23870.36298105811,
+      "min": 20.307583,
+      "med": 23394.165416,
+      "max": 54290.955955
+    },
+    "data_sent": {
+      "count": 3506747464,
+      "rate": 967039.8436856882
+    },
+    "sign_ws_got_commit{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "passes": 223,
+      "fails": 1507,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.12890173410404623
+    },
+    "sign_ws_got_live_prediction{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "passes": 163,
+      "fails": 2578,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.05946734768332725
+    },
+    "sign_ws_got_live_prediction": {
+      "passes": 921,
+      "fails": 11158,
+      "thresholds": {
+        "rate>0.80": true
+      },
+      "value": 0.07624803377763059
+    },
+    "sign_ws_unanswered_frames{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "count": 16,
+      "rate": 0.004412247433786412,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "data_received": {
+      "count": 163682865,
+      "rate": 45138.08131569112
+    },
+    "sign_ws_unanswered_frames{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "rate": 0.003860716504563111,
+      "count": 14,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_session_elapsed{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "p(95)": 44716.95,
+      "avg": 33742.27283236994,
+      "min": 4,
+      "med": 35433.5,
+      "max": 52279,
+      "p(90)": 42332.3,
+      "thresholds": {
+        "p(95)>=0": false
+      }
+    },
+    "sign_ws_got_live_prediction{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "passes": 177,
+      "fails": 2398,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.06873786407766991
+    },
+    "sign_ws_min_frames": {
+      "avg": 12,
+      "min": 12,
+      "med": 12,
+      "max": 12,
+      "p(90)": 12,
+      "p(95)": 12
+    },
+    "sign_ws_messages": {
+      "count": 509957,
+      "rate": 140.6285290369636
+    },
+    "ws_sessions": {
+      "rate": 3.33097104704413,
+      "count": 12079
+    },
+    "iterations": {
+      "count": 12079,
+      "rate": 3.33097104704413
+    },
+    "sign_ws_clean_close{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "passes": 2741,
+      "fails": 0,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 1
+    },
+    "sign_ws_got_commit{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "fails": 2578,
+      "passes": 163,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.05946734768332725
+    },
+    "sign_ws_silent_sessions{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "count": 13,
+      "rate": 0.0035849510399514604,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_transport_errors": {
+      "count": 116,
+      "rate": 0.03198879389495149
+    },
+    "sign_ws_silent_sessions{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "count": 14,
+      "rate": 0.003860716504563111,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "vus": {
+      "value": 3,
+      "min": 1,
+      "max": 100
+    },
+    "sign_ws_got_commit{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "passes": 180,
+      "fails": 2491,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.06739049045301385
+    },
+    "sign_ws_frames_sent": {
+      "count": 390372,
+      "rate": 107.65111595137934
+    },
+    "sign_ws_sessions_with_drops": {
+      "fails": 12079,
+      "passes": 0,
+      "value": 0
+    },
+    "checks": {
+      "passes": 36976,
+      "fails": 11340,
+      "value": 0.765295140326186
+    },
+    "sign_ws_commits": {
+      "count": 945,
+      "rate": 0.26059836405801
+    },
+    "sign_ws_errors": {
+      "rate": 0.03198879389495149,
+      "count": 116,
+      "thresholds": {
+        "count<1": true
+      }
+    },
+    "sign_ws_session_elapsed{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "avg": 20335.95038307187,
+      "min": 5,
+      "med": 20900,
+      "max": 37083,
+      "p(90)": 25498,
+      "p(95)": 27167,
+      "thresholds": {
+        "p(95)>=0": false
+      }
+    },
+    "sign_ws_session_elapsed": {
+      "avg": 23428.71794022684,
+      "min": 4,
+      "med": 22890,
+      "max": 52279,
+      "p(90)": 33319.80000000001,
+      "p(95)": 37497.2
+    },
+    "sign_ws_clean_close{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "passes": 2575,
+      "fails": 0,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 1
+    },
+    "sign_ws_abnormal_closes": {
+      "rate": 0.0002757654646116508,
+      "count": 1
+    },
+    "sign_ws_session_frames_sent{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "avg": 47.75549132947977,
+      "min": 1,
+      "med": 48,
+      "max": 48,
+      "p(90)": 48,
+      "p(95)": 48,
+      "thresholds": {
+        "avg>=0": false
+      }
+    },
+    "sign_ws_session_frames_sent{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "avg": 32.81075359864521,
+      "min": 1,
+      "med": 33,
+      "max": 33,
+      "p(90)": 33,
+      "p(95)": 33,
+      "thresholds": {
+        "avg>=0": false
+      }
+    },
+    "sign_ws_unanswered_frames": {
+      "count": 67,
+      "rate": 0.018476286128980602
+    },
+    "sign_ws_num_frames": {
+      "max": 36,
+      "p(90)": 3,
+      "p(95)": 4,
+      "avg": 1.0923489627556833,
+      "min": 0,
+      "med": 0
+    },
+    "sign_ws_unanswered_frames{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "count": 15,
+      "rate": 0.004136481969174762,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_got_commit{clip:popular-\u0e19\u0e32\u0e21\u0e2a\u0e01\u0e38\u0e25.json}": {
+      "passes": 177,
+      "fails": 2398,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.06873786407766991
+    },
+    "sign_ws_stalls": {
+      "rate": 0,
+      "count": 0,
+      "thresholds": {
+        "count<1": false
+      }
+    },
+    "sign_ws_session_elapsed{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "min": 4,
+      "med": 21624,
+      "max": 35951,
+      "p(90)": 26518,
+      "p(95)": 27882,
+      "avg": 20979.034444028453,
+      "thresholds": {
+        "p(95)>=0": false
+      }
+    },
+    "sign_ws_got_commit": {
+      "passes": 921,
+      "fails": 11158,
+      "value": 0.07624803377763059
+    },
+    "sign_ws_session_frames_sent{clip:popular-\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35.json}": {
+      "avg": 28.85323848745788,
+      "min": 1,
+      "med": 29,
+      "max": 29,
+      "p(90)": 29,
+      "p(95)": 29,
+      "thresholds": {
+        "avg>=0": false
+      }
+    },
+    "ws_session_duration": {
+      "med": 23366.20235,
+      "max": 53711.057617,
+      "p(90)": 33755.6570098,
+      "p(95)": 37893.80716520001,
+      "avg": 23838.046746149947,
+      "min": 20.018912
+    },
+    "sign_ws_clean_close": {
+      "fails": 1,
+      "passes": 12078,
+      "thresholds": {
+        "rate>0.95": false
+      },
+      "value": 0.9999172116897094
+    },
+    "phase_checks_passed": {
+      "count": 921,
+      "rate": 0.25397999290733037
+    },
+    "sign_ws_session_frames_sent{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "max": 28,
+      "p(90)": 28,
+      "p(95)": 28,
+      "avg": 27.84239328712149,
+      "min": 1,
+      "med": 28,
+      "thresholds": {
+        "avg>=0": false
+      }
+    },
+    "sign_ws_silent_sessions{clip:popular-\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13.json}": {
+      "count": 16,
+      "rate": 0.004412247433786412,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "sign_ws_live_prediction_latency": {
+      "avg": 47.203722854188214,
+      "min": 2,
+      "med": 13,
+      "max": 3494,
+      "p(90)": 67,
+      "p(95)": 184.1999999999989
+    },
+    "sign_ws_unanswered_frames{clip:popular-\u0e0a\u0e37\u0e48\u0e2d.json}": {
+      "count": 9,
+      "rate": 0.0024818891815048573,
+      "thresholds": {
+        "count>=0": false
+      }
+    },
+    "iteration_duration": {
+      "avg": 25009.055452367193,
+      "min": 1023.245388,
+      "med": 24555.831348,
+      "max": 55294.040564,
+      "p(90)": 34933.838293,
+      "p(95)": 39028.3333132
+    },
+    "sign_ws_session_frames_sent": {
+      "min": 1,
+      "med": 30,
+      "max": 48,
+      "p(90)": 48,
+      "p(95)": 48,
+      "avg": 32.318238264757014
+    },
+    "ws_connecting": {
+      "max": 4061.214492,
+      "p(90)": 1061.2416006,
+      "p(95)": 1485.0118792,
+      "avg": 409.73996590479544,
+      "min": 11.086464,
+      "med": 115.323397,
+      "thresholds": {
+        "p(95)<3000": false
+      }
+    },
+    "vus_max": {
+      "value": 100,
+      "min": 100,
+      "max": 100
+    },
+    "sign_ws_got_live_prediction{clip:popular-\u0e2a\u0e19\u0e38\u0e01.json}": {
+      "passes": 178,
+      "fails": 2184,
+      "thresholds": {
+        "rate>=0": false
+      },
+      "value": 0.07535986452159187
+    }
+  },
+  "root_group": {
+    "path": "",
+    "id": "d41d8cd98f00b204e9800998ecf8427e",
+    "groups": {
+      "sign_to_text": {
+        "name": "sign_to_text",
+        "path": "::sign_to_text",
+        "id": "b0ddb4900ce2e6f0f3eac686c380a639",
+        "groups": {},
+        "checks": {
+          "sign_to_text upgraded": {
+            "name": "sign_to_text upgraded",
+            "path": "::sign_to_text::sign_to_text upgraded",
+            "id": "cdbe54b29ea7acd10efd9e5fd4dddb3e",
+            "passes": 12079,
+            "fails": 0
+          },
+          "sign_to_text received messages": {
+            "id": "a933cbe5750952f7f32af961c388a1b5",
+            "passes": 12013,
+            "fails": 66,
+            "name": "sign_to_text received messages",
+            "path": "::sign_to_text::sign_to_text received messages"
+          },
+          "sign_to_text no server error": {
+            "fails": 116,
+            "name": "sign_to_text no server error",
+            "path": "::sign_to_text::sign_to_text no server error",
+            "id": "9f8cab07bdd3910853ca670ae476b12a",
+            "passes": 11963
+          },
+          "sign_to_text live_prediction": {
+            "path": "::sign_to_text::sign_to_text live_prediction",
+            "id": "d57a25242b1215a741f2f747df8c98aa",
+            "passes": 921,
+            "fails": 11158,
+            "name": "sign_to_text live_prediction"
+          }
+        }
+      }
+    },
+    "checks": {},
+    "name": ""
+  }
+}
